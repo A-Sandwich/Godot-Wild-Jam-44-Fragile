@@ -1,9 +1,10 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Assets/Sprites/camelot_ v1.0/lancelot_.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Player.gd" type="Script" id=2]
 [ext_resource path="res://Libs/ShardEmitter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Weapons/Sword.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Characters/PlayerAnimation.gd" type="Script" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -105,7 +106,7 @@ region = Rect2( 72, 96, 24, 24 )
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
-"name": "default",
+"name": "Idle",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
@@ -145,8 +146,8 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 25 )
-animation = "Run"
-frame = 3
+animation = "Idle"
+script = ExtResource( 5 )
 
 [node name="ShardEmitter" parent="AnimatedSprite" instance=ExtResource( 3 )]
 visible = false

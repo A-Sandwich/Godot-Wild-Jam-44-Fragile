@@ -32,7 +32,7 @@ func ProcessInput():
 		#shatterSprite.texture = imgTexture
 		#add_child(shatterSprite)
 		#shatterSprite.shatter()
-	
+	$AnimatedSprite.animate(direction)
 	move_and_slide(direction * SPEED)
 
 func attack(direction):
