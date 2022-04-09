@@ -31,11 +31,5 @@ func ProcessInput():
 		shatterSprite.texture = imgTexture
 		add_child(shatterSprite)
 		shatterSprite.shatter()
-		#$AnimatedSprite.stop()
-		#var texture = $AnimatedSprite.frames.get_frame($AnimatedSprite.animation, $AnimatedSprite.frame)
-		#$AnimatedSprite.visible = false
-		#$Sprite.texture = texture
-		#$Sprite.update()
-		#$Sprite/ShardEmitter.shatter()
 	
 	move_and_slide(direction * SPEED)
