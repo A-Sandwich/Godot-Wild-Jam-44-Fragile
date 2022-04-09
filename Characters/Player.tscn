@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/Sprites/camelot_ v1.0/lancelot_.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Player.gd" type="Script" id=2]
 [ext_resource path="res://Libs/ShardEmitter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Weapons/Sword.tscn" type="PackedScene" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -149,7 +150,6 @@ frame = 3
 
 [node name="ShardEmitter" parent="AnimatedSprite" instance=ExtResource( 3 )]
 visible = false
-scale = Vector2( 1, 1 )
 nbr_of_shards = 10
 
 [node name="Sprite" type="Sprite" parent="AnimatedSprite/ShardEmitter"]
@@ -162,3 +162,5 @@ shape = SubResource( 26 )
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 zoom = Vector2( 0.5, 0.5 )
+
+[node name="Sword" parent="." instance=ExtResource( 4 )]

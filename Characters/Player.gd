@@ -21,15 +21,21 @@ func ProcessInput():
 		direction.x = -1
 	
 	if Input.is_action_just_pressed("attack"):
-		$AnimatedSprite.stop()
-		$AnimatedSprite.visible = false
-		var shatterSprite = SHATTERSPRITE.instance()
-		shatterSprite.position = position
-		var image = $AnimatedSprite.frames.get_frame($AnimatedSprite.animation, $AnimatedSprite.frame).get_data()
-		var imgTexture = ImageTexture.new()
-		imgTexture.create_from_image(image, 0)
-		shatterSprite.texture = imgTexture
-		add_child(shatterSprite)
-		shatterSprite.shatter()
+		attack(direction)
+		#$AnimatedSprite.stop()
+		#$AnimatedSprite.visible = false
+		#var shatterSprite = SHATTERSPRITE.instance()
+		#shatterSprite.position = position
+		#var image = $AnimatedSprite.frames.get_frame($AnimatedSprite.animation, $AnimatedSprite.frame).get_data()
+		#var imgTexture = ImageTexture.new()
+		#imgTexture.create_from_image(image, 0)
+		#shatterSprite.texture = imgTexture
+		#add_child(shatterSprite)
+		#shatterSprite.shatter()
 	
 	move_and_slide(direction * SPEED)
+
+func attack(direction):
+	for child in get_children():
+		if child.is_in_group("weapon"):
+			child.attack(direction)
