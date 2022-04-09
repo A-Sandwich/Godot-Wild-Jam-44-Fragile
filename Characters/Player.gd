@@ -1,12 +1,13 @@
-extends KinematicBody2D
+extends "res://Characters/BaseCharacter.gd"
 
 var SPEED = 200
-var SHATTERSPRITE = preload("res://Libs/ShatterSprite.tscn")
 
 func _ready():
 	pass
 
 func _physics_process(delta):
+	if not is_alive:
+		return
 	ProcessInput()
 
 func ProcessInput():
@@ -34,8 +35,3 @@ func ProcessInput():
 		#shatterSprite.shatter()
 	$AnimatedSprite.animate(direction)
 	move_and_slide(direction * SPEED)
-
-func attack(direction):
-	for child in get_children():
-		if child.is_in_group("weapon"):
-			child.attack(direction)

@@ -229,9 +229,10 @@ anims/SwingRightFull = SubResource( 8 )
 anims/SwingUp = SubResource( 5 )
 
 [node name="Cooldown" type="Timer" parent="."]
-wait_time = 0.25
+wait_time = 3.0
 one_shot = true
 
+[connection signal="body_entered" from="Sprite/Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
 [connection signal="timeout" from="Cooldown" to="." method="_on_Cooldown_timeout"]

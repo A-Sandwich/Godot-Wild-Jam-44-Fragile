@@ -8,6 +8,8 @@ func _ready():
 func attack(direction):
 	if not can_attack:
 		return
+	print("Attack")
+	$Cooldown.start()
 	can_attack = false
 	if direction.x > 0:
 		if direction.y == 0:
@@ -23,7 +25,6 @@ func attack(direction):
 		$AnimationPlayer.play("SwingDown")
 	else:
 		$AnimationPlayer.play("SwingUp")
-	$Cooldown.start()
 
 
 func _on_Cooldown_timeout():
@@ -36,3 +37,10 @@ func _on_AnimationPlayer_animation_started(anim_name):
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	visible = false
+
+
+func _on_Area2D_body_entered(body):
+	if body == self or body == get_parent():
+		return
+	if body.has_method("die"):
+		body.die()

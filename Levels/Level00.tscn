@@ -1,16 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Levels/Sprite.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/GWJ/43-All-Cards.png" type="Texture" id=2]
 [ext_resource path="res://Libs/ShardEmitter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Characters/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Levels/TileSet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Characters/Enemy.tscn" type="PackedScene" id=6]
 
 [node name="Level00" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 325, 175 )
 z_index = 1
+collision_layer = 1
+collision_mask = 1
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
@@ -31,3 +34,6 @@ tile_data = PoolIntArray( -65536, 0, 0, -65535, 1, 0, -65534, 1, 0, -65533, 1, 0
 anchor_mode = 0
 current = true
 zoom = Vector2( 0.51, 0.51 )
+
+[node name="Enemy" parent="." instance=ExtResource( 6 )]
+position = Vector2( 52, 43 )
