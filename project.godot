@@ -10,9 +10,13 @@ config_version=4
 
 [application]
 
-config/name="Game-Jam-Template"
+config/name="Fragile"
 run/main_scene="res://SplashScreen/SplashScreen.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+ShardEmitter="*res://Libs/ShardEmitter.tscn"
 
 [display]
 
