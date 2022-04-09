@@ -16,3 +16,5 @@ func _physics_process(delta):
 		attack(direction)
 	
 	move_and_slide(direction * speed)
+
+

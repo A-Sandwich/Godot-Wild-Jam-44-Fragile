@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var SHATTERSPRITE = preload("res://Libs/ShatterSprite.tscn")
 var is_alive = true
+var is_parrying = true
 
 func _ready():
 	pass
@@ -13,8 +14,17 @@ func attack(direction):
 			child.attack(direction)
 
 func die():
+	if is_parrying:
+		is_parrying = false
+		return
 	for child in get_children():
 		if child is AnimatedSprite:
 			is_alive = false
 			child.stop()
 			child.play("Die")
+
+
+func parry(is_disabled):
+	is_parrying = not is_disabled
+	if is_disabled:
+		yield(get_tree().create_timer(1), "timeout")

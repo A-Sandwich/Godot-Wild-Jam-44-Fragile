@@ -44,3 +44,9 @@ func _on_Area2D_body_entered(body):
 		return
 	if body.has_method("die"):
 		body.die()
+
+
+func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	if "SwordArea" in area.name:
+		get_parent().parry(false)
+		area.owner.get_parent().parry(true)
