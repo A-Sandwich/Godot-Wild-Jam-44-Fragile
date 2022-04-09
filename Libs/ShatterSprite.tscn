@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Libs/ShardEmitter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Libs/ShatterSprite.gd" type="Script" id=2]
+
+[node name="ShatterSprite" type="Sprite"]
+script = ExtResource( 2 )
+
+[node name="ShardEmitter" parent="." instance=ExtResource( 1 )]
