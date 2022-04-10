@@ -48,5 +48,6 @@ func _on_Area2D_body_entered(body):
 
 func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	if "SwordArea" in area.name:
+		$AudioStreamPlayer2D.play()
 		get_parent().parry(false)
 		area.owner.get_parent().parry(true)

@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 var SHATTERSPRITE = preload("res://Libs/ShatterSprite.tscn")
 var is_alive = true
-var is_parrying = true
+var is_parrying = false
 
 func _ready():
 	pass
@@ -25,6 +25,7 @@ func die():
 
 
 func parry(is_disabled):
-	is_parrying = not is_disabled
-	if is_disabled:
+	if not is_in_group("player"):
 		yield(get_tree().create_timer(1), "timeout")
+	else:
+		var is_parrying = true
