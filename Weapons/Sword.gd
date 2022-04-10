@@ -1,6 +1,7 @@
 extends Node2D
 
 var can_attack = true
+var attack_hits = []
 
 func _ready():
 	visible = false
@@ -8,7 +9,6 @@ func _ready():
 func attack(direction):
 	if not can_attack:
 		return
-	print("Attack")
 	$Cooldown.start()
 	can_attack = false
 	if direction.x > 0:
@@ -32,6 +32,7 @@ func _on_Cooldown_timeout():
 
 
 func _on_AnimationPlayer_animation_started(anim_name):
+	attack_hits.clear()
 	visible = true
 
 
@@ -42,12 +43,16 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _on_Area2D_body_entered(body):
 	if body == self or body == get_parent():
 		return
-	if body.has_method("die"):
-		body.die()
+	if not body in attack_hits:
+		attack_hits.append(body)
+		if body.has_method("die"):
+			body.die()
 
 
-func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	if "SwordArea" in area.name:
+func _on_Parry_area_entered(area):
+	if not $AnimationPlayer.is_playing():
+		return
+	if area != $Sprite/SwordArea and not "Parry" in area.name and "SwordArea" in area.name:
 		$AudioStreamPlayer2D.play()
 		get_parent().parry(false)
 		area.owner.get_parent().parry(true)

@@ -9,6 +9,8 @@ func _ready():
 
 
 func attack(direction):
+	if "Player" in name:
+		is_parrying = true
 	for child in get_children():
 		if child.is_in_group("weapon"):
 			child.attack(direction)
@@ -27,5 +29,3 @@ func die():
 func parry(is_disabled):
 	if not is_in_group("player"):
 		yield(get_tree().create_timer(1), "timeout")
-	else:
-		var is_parrying = true

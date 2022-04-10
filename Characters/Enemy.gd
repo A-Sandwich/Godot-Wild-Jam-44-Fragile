@@ -10,11 +10,12 @@ func _ready():
 
 
 func _physics_process(delta):
+	if not is_alive:
+		return
+
 	var direction = global_position.direction_to(player.global_position)
 	
 	if global_position.distance_to(player.global_position) <= 32:
 		attack(direction)
 	
 	move_and_slide(direction * speed)
-
-
