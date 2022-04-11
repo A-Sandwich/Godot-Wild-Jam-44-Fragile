@@ -51,6 +51,12 @@ func _on_Parry_area_entered(area):
 	if not $AnimationPlayer.is_playing():
 		return
 	if area != $Sprite/SwordArea and not "Parry" in area.name and "SwordArea" in area.name:
+		parry(true) 
+		area.owner.parry(false)
+
+
+func parry(playAudio):
+	if playAudio:
 		$AudioStreamPlayer2D.play()
-		$AnimationPlayer.stop()
-		area.owner.get_parent().parry(true)
+	$AnimationPlayer.stop()
+	$AnimationPlayer.play("RESET")
