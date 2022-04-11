@@ -35,10 +35,9 @@ func _on_AnimationPlayer_animation_started(anim_name):
 	attack_hits.clear()
 	visible = true
 
-
 func _on_AnimationPlayer_animation_finished(anim_name):
 	visible = false
-
+	var parent = get_parent()
 
 func _on_Area2D_body_entered(body):
 	if body == self or body == get_parent():
@@ -48,11 +47,10 @@ func _on_Area2D_body_entered(body):
 		if body.has_method("die"):
 			body.die()
 
-
 func _on_Parry_area_entered(area):
 	if not $AnimationPlayer.is_playing():
 		return
 	if area != $Sprite/SwordArea and not "Parry" in area.name and "SwordArea" in area.name:
 		$AudioStreamPlayer2D.play()
-		get_parent().parry(false)
+		$AnimationPlayer.stop()
 		area.owner.get_parent().parry(true)
