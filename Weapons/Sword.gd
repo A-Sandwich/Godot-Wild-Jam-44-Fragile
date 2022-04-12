@@ -2,6 +2,7 @@ extends Node2D
 
 var can_attack = true
 var attack_hits = []
+var potential_parry = []
 
 func _ready():
 	visible = false
@@ -45,12 +46,18 @@ func _on_Area2D_body_entered(body):
 	if not body in attack_hits:
 		attack_hits.append(body)
 		if body.has_method("die"):
+			potential_parry.append(body)
+			$Parry/ParryTimer.start()
 			body.die()
 
 func _on_Parry_area_entered(area):
 	if not $AnimationPlayer.is_playing():
 		return
 	if area != $Sprite/SwordArea and not "Parry" in area.name and "SwordArea" in area.name:
+		if not $Parry/ParryTimer.paused:
+			for parry in potential_parry:
+				if parry.get_tree().contains(area):
+					parry.parry()
 		parry(true) 
 		area.owner.parry(false)
 
@@ -60,3 +67,11 @@ func parry(playAudio):
 		$AudioStreamPlayer2D.play()
 	$AnimationPlayer.stop()
 	$AnimationPlayer.play("RESET")
+
+func die():
+	$AnimationPlayer.stop()
+	$AudioStreamPlayer2D.stop()
+
+
+func _on_ParryTimer_timeout():
+	pass # Replace with function body.
