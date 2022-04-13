@@ -1,7 +1,6 @@
 extends "res://Characters/BaseCharacter.gd"
 
 var SPEED = 200
-
 func _ready():
 	pass
 
@@ -22,7 +21,7 @@ func ProcessInput():
 		direction.x = -1
 	
 	if Input.is_action_just_pressed("attack"):
-		attack(direction)
+		emit_signal("attack", direction)
 		#$AnimatedSprite.stop()
 		#$AnimatedSprite.visible = false
 		#var shatterSprite = SHATTERSPRITE.instance()
@@ -34,4 +33,14 @@ func ProcessInput():
 		#add_child(shatterSprite)
 		#shatterSprite.shatter()
 	$AnimatedSprite.animate(direction)
-	move_and_slide(direction * SPEED)
+	var result = _knocback()
+	if result != Vector2.ZERO:
+		if $Pushback.time_left == 0:
+			$Pushback.start()
+		move_and_slide(result)
+	else:
+		move_and_slide(direction * SPEED)
+
+
+func _on_Pushback_timeout():
+	knockback = Vector2.ZERO

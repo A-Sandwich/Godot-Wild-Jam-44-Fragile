@@ -2,9 +2,13 @@ extends KinematicBody2D
 
 var SHATTERSPRITE = preload("res://Libs/ShatterSprite.tscn")
 var is_alive = true
+var speed = 150
+var knockback = Vector2.ZERO
+
+signal attack
 
 func _ready():
-	pass
+	add_to_group("damageable")
 
 
 func attack(direction):
@@ -12,20 +16,35 @@ func attack(direction):
 		if child.is_in_group("weapon"):
 			child.attack(direction)
 
-func die():
+func _die():
+	print("die", name)
 	is_alive = false
-	yield(get_tree().create_timer(1), "timeout")
-	if is_alive:
-		print("Not dead")
-		return
 	for child in get_children():
-		if child is AnimatedSprite:
+		if child is AnimatedSprite and child.animation != "Die":
+			print("dying")
 			is_alive = false
 			child.stop()
-			child.play("Die")
+			child.play("Die") 
 		if child.is_in_group("weapon"):
 			child.die()
 
 
-func parry():
+func _damage(body):
+	if self != body:
+		return
+	_die()
+
+func _parry(direction):
+	print("parry", name)
 	is_alive = true
+	for child in get_children():
+		if child is AnimatedSprite:
+			child.stop()
+			child.play("Idle")
+	knockback = direction * -1
+
+func _knocback():
+	var result = knockback
+	if knockback != Vector2.ZERO:
+		result = knockback * (speed)
+	return result

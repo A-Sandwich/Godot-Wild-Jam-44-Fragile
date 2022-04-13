@@ -1,15 +1,22 @@
 extends Node2D
 
 var can_attack = true
-var attack_hits = []
-var potential_parry = []
+var previous_direction = Vector2.ZERO
+
+signal parry
+signal damage
 
 func _ready():
 	visible = false
-
-func attack(direction):
+	get_parent().connect("attack", self, "_attack")
+	connect("parry", get_parent(), "_parry")
+	for damageable in get_tree().get_nodes_in_group("damageable"):
+		connect("damage", damageable, "_damage")
+	
+func _attack(direction):
 	if not can_attack:
 		return
+	previous_direction = direction
 	$Cooldown.start()
 	can_attack = false
 	if direction.x > 0:
@@ -33,36 +40,20 @@ func _on_Cooldown_timeout():
 
 
 func _on_AnimationPlayer_animation_started(anim_name):
-	attack_hits.clear()
 	visible = true
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	visible = false
 	var parent = get_parent()
 
-func _on_Area2D_body_entered(body):
-	if body == self or body == get_parent():
-		return
-	if not body in attack_hits:
-		attack_hits.append(body)
-		if body.has_method("die"):
-			potential_parry.append(body)
-			$Parry/ParryTimer.start()
-			body.die()
-
 func _on_Parry_area_entered(area):
 	if not $AnimationPlayer.is_playing():
 		return
-	if area != $Sprite/SwordArea and not "Parry" in area.name and "SwordArea" in area.name:
-		if not $Parry/ParryTimer.paused:
-			for parry in potential_parry:
-				if parry.get_tree().contains(area):
-					parry.parry()
-		parry(true) 
-		area.owner.parry(false)
-
+	if area != self and "Parry" in area.name:
+		parry(true)
 
 func parry(playAudio):
+	emit_signal("parry", previous_direction)
 	if playAudio:
 		$AudioStreamPlayer2D.play()
 	$AnimationPlayer.stop()
@@ -73,5 +64,12 @@ func die():
 	$AudioStreamPlayer2D.stop()
 
 
-func _on_ParryTimer_timeout():
-	pass # Replace with function body.
+func _on_Parry_body_entered(body):
+	print(body.name)
+	if body == self or body == get_parent():
+		return
+	$Parry/ParryTimer.start()
+	if not is_connected("damage", body, "_damage"):
+		connect("damage", body, "_damage")
+	emit_signal("damage", body)
+
