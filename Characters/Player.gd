@@ -20,8 +20,18 @@ func ProcessInput():
 	if Input.is_action_pressed("move_left"):
 		direction.x = -1
 	
-	if Input.is_action_just_pressed("attack"):
-		emit_signal("attack", direction)
+	var attack_direction = Vector2.ZERO
+	if Input.is_action_pressed("attack_up"):
+		attack_direction.y = -1
+	if Input.is_action_pressed("attack_down"):
+		attack_direction.y = 1
+	if Input.is_action_pressed("attack_right"):
+		attack_direction.x = 1
+	if Input.is_action_pressed("attack_left"):
+		attack_direction.x = -1
+	if attack_direction != Vector2.ZERO:
+		emit_signal("attack", attack_direction)
+
 		#$AnimatedSprite.stop()
 		#$AnimatedSprite.visible = false
 		#var shatterSprite = SHATTERSPRITE.instance()
