@@ -2,6 +2,7 @@ extends Node2D
 
 var can_attack = true
 var previous_direction = Vector2.ZERO
+var attack_speed = 1.0
 
 signal parry
 signal damage
@@ -21,18 +22,18 @@ func _attack(direction):
 	can_attack = false
 	if direction.x > 0:
 		if direction.y == 0:
-			$AnimationPlayer.play("SwingRight")
+			$AnimationPlayer.play("SwingRight", -1, attack_speed)
 		elif direction.y != 0:
-			$AnimationPlayer.play("SwingRightFull")
+			$AnimationPlayer.play("SwingRightFull", -1, attack_speed)
 	elif direction.x < 0:
 		if direction.y == 0:
-			$AnimationPlayer.play("SwingLeft")
+			$AnimationPlayer.play("SwingLeft", -1, attack_speed)
 		elif direction.y != 0:
-			$AnimationPlayer.play("SwingLeftFull")
+			$AnimationPlayer.play("SwingLeftFull", -1, attack_speed)
 	elif direction.y > 0:
-		$AnimationPlayer.play("SwingDown")
+		$AnimationPlayer.play("SwingDown", -1, attack_speed)
 	else:
-		$AnimationPlayer.play("SwingUp")
+		$AnimationPlayer.play("SwingUp", -1, attack_speed)
 
 
 func _on_Cooldown_timeout():
@@ -62,6 +63,8 @@ func parry(playAudio):
 func die():
 	$AnimationPlayer.stop()
 	$AudioStreamPlayer2D.stop()
+	$Parry.monitorable = false
+	$Parry.monitoring = false
 
 
 func _on_Parry_body_entered(body):

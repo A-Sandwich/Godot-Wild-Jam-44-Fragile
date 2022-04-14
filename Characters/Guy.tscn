@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Sprites/camelot_ v1.0/morganLeFay_.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Guy.gd" type="Script" id=2]
@@ -32,62 +32,6 @@ animations = [ {
 radius = 5.0
 height = 4.0
 
-[sub_resource type="Animation" id=7]
-resource_name = "Bobb"
-length = 0.8
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("KinematicBody2D:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -1, -2 ), Vector2( 0, 0 ), Vector2( 1, -2 ), Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("KinematicBody2D:rotation_degrees")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -15.0, 0.0, 14.0, 0.0 ]
-}
-
-[sub_resource type="Animation" id=8]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("KinematicBody2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("KinematicBody2D:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
 [node name="Guy" type="Node2D"]
 script = ExtResource( 2 )
 
@@ -103,7 +47,3 @@ frames = SubResource( 5 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 0, 4 )
 shape = SubResource( 6 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Bobb = SubResource( 7 )
-anims/RESET = SubResource( 8 )

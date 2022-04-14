@@ -1,11 +1,13 @@
 extends "res://Characters/BaseCharacter.gd"
 
 var SPEED = 200
+var player_controlled = true
+
 func _ready():
-	pass
+	$AnimatedSprite.play("Idle")
 
 func _physics_process(delta):
-	if not is_alive:
+	if not is_alive or not player_controlled:
 		return
 	ProcessInput()
 

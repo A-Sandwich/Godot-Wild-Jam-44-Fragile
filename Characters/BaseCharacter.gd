@@ -20,7 +20,8 @@ func _die():
 	print("die", name)
 	is_alive = false
 	for child in get_children():
-		if child is AnimatedSprite and child.animation != "Die":
+		print(child is AnimatedSprite)
+		if child is AnimatedSprite:
 			print("dying")
 			is_alive = false
 			child.stop()

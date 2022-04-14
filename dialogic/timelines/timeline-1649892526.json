@@ -1,0 +1,67 @@
+{
+	"events": [
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649892978.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": true
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1649892978.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hear ye, hear ye. We all are gathered here today to test the strength and will of our most distinguished, and RESILIENT knight.\nYes, you've seen them move with WASD! You've watched as their enemies fell from their attacks with the ARROW KEYS.\nYes Yes, HOLD YOUR APPLAUSE NO MORE, PLAYER ONE IS HERE!"
+		},
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649892549.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1649892549.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "...\n...\nhi"
+		},
+		{
+			"character": "character-1649892978.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Well, I never claimed they were much of a word smith...\nAnyway, I'm gonna get out of here and that's when the EXCITMENT will begin. I'm sure some guy will charge in here and try to attack you!\nPlease defend yourself for our enjoyment, erm, I mean for your ~HONOR~"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.1",
+		"file": "timeline-1649892526.json",
+		"name": "Intro"
+	}
+}

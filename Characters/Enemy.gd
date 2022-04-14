@@ -5,6 +5,7 @@ var stunned = false
 
 func _ready():
 	speed = 100
+	$Sword.attack_speed = 0.5
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
 		player = players[0]
