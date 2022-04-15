@@ -10,6 +10,10 @@
 
 [node name="Level00" type="Node2D"]
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+z_index = 10
+color = Color( 0.309804, 0.32549, 0.521569, 1 )
+
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
 position = Vector2( 2666, 1199 )

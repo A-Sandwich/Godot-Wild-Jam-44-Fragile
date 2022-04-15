@@ -4,26 +4,6 @@
 [ext_resource path="res://Assets/Sprites/light.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sprites/background.png" type="Texture" id=3]
 
-[sub_resource type="CapsuleShape2D" id=11]
-radius = 5.0
-height = 0.0
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 16, 0, 16, 32 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 32 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 16, 32 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 16, 32 )
-
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 16, 32 )
@@ -44,26 +24,40 @@ region = Rect2( 48, 0, 16, 32 )
 atlas = ExtResource( 1 )
 region = Rect2( 64, 0, 16, 32 )
 
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 16, 32 )
+
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
-"loop": true,
-"name": "Burn",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": false,
 "name": "Light",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "Burn",
+"speed": 5.0
 } ]
 
+[sub_resource type="CapsuleShape2D" id=11]
+radius = 5.0
+height = 0.0
+
 [node name="Fire" type="Node2D"]
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 1, 8 )
-shape = SubResource( 11 )
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
@@ -72,22 +66,24 @@ scale = Vector2( 2.67187, 2.17188 )
 texture = ExtResource( 3 )
 
 [node name="Light2D" type="Light2D" parent="."]
+scale = Vector2( 0.45, 0.45 )
 texture = ExtResource( 2 )
 color = Color( 1, 0.588235, 0.00784314, 1 )
-energy = 0.5
 shadow_enabled = true
 shadow_buffer_size = 512
-shadow_gradient_length = 10.0
-shadow_filter = 1
+shadow_gradient_length = 50.0
+shadow_filter = 2
 shadow_filter_smooth = 5.0
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-z_index = -10
-color = Color( 0.27451, 0.27451, 0.27451, 1 )
-
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -1, -10 )
 scale = Vector2( 1.25, 1.25 )
 frames = SubResource( 10 )
 animation = "Burn"
 frame = 2
 playing = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 11 )
