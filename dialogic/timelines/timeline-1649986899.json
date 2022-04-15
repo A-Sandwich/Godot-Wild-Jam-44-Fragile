@@ -1,0 +1,121 @@
+{
+	"events": [
+		{
+			"animation": "1-fade_in.gd",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": true
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Happy",
+			"text": "Booooooo"
+		},
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649892549.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1649892549.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "..."
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Angry",
+			"text": "AREN'T YOU SCARED?! I'M T-E-R-R-I-F-Y-I-N-G"
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Default",
+			"text": "Ya know, you gotta be careful about how you talk to ghosts. A lot of us haunt these halls.\nWho knows, if you're nice we might give you a buff, but if you're awful then we might see fit to debuff ya."
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "Angry",
+			"question": "CATCH MY DRIFT?"
+		},
+		{
+			"choice": "...",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Poof",
+			"text": "Forget it"
+		},
+		{
+			"choice": "OH YEAH, YOU THE BEST",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Happy",
+			"text": "There we go <3\nHere, you look incredibly fragile, like you might die from a single hit. I will infuse your armor with my spirit so you can take 1 additional hit."
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"shield"
+				],
+				"method_name": "buff",
+				"target_node_path": "/root/State"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"event_id": "dialogic_013"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.1",
+		"file": "timeline-1649986899.json",
+		"name": "Buff-Intro"
+	}
+}

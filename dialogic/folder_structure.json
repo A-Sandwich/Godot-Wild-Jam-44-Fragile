@@ -6,7 +6,8 @@
 		"Characters": {
 			"files": [
 				"character-1649892549.json",
-				"character-1649892978.json"
+				"character-1649892978.json",
+				"character-1649986973.json"
 			],
 			"folders": {
 
@@ -45,7 +46,18 @@
 				"timeline-1649892526.json"
 			],
 			"folders": {
+				"Buffs": {
+					"files": [
+						"timeline-1649986899.json"
+					],
+					"folders": {
 
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				}
 			},
 			"metadata": {
 				"color": null,

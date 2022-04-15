@@ -87,6 +87,7 @@ config/icon="res://icon.png"
 [autoload]
 
 ShardEmitter="*res://Libs/ShardEmitter.tscn"
+State="*res://WorldState/State.tscn"
 
 [display]
 

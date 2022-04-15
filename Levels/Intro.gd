@@ -3,11 +3,12 @@ extends Node2D
 signal arrived
 var ENEMY = preload("res://Characters/Enemy.tscn")
 var game_started = false
+var animation_played = false
 
 func _ready():
 	$Guy.set_target_location($Center.global_position)
 	$Guy.connect("arrived", self, "_on_arrival")
-	$Player.player_controlled = true
+	$Player.player_controlled = false
 
 func _on_arrival():
 	if $Center.global_position.distance_to($Guy/KinematicBody2D.global_position) < 10:
@@ -31,14 +32,16 @@ func _on_timeline_end(timeline_name):
 func _on_Door_timeout():
 	for spike in get_tree().get_nodes_in_group("spike"):
 			spike.engage()
-	
 func _process(delta):
 	if game_started:
 		state_check()
 
 func state_check():
+	if animation_played:
+		return
 	var win = true
-	var lose = true
+	var lose = false
+	
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		if enemy.is_alive:
 			win = false
@@ -51,3 +54,4 @@ func state_check():
 	if win:
 		for spike in get_tree().get_nodes_in_group("spike"):
 			spike.disengage()
+		animation_played = true

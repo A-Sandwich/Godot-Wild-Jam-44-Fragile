@@ -1,0 +1,33 @@
+{
+	"color": "#ffffffff",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1649986973.json",
+	"mirror_portraits": false,
+	"name": "Ghost",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 100,
+	"offset_y": -50,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://Assets/Sprites/Groovy'sCuteGhostPack/Individuals/Willy/Standard/GhostWillySprite000.png"
+		},
+		{
+			"name": "Angry",
+			"path": "res://Assets/Sprites/Groovy'sCuteGhostPack/Individuals/Willy/Angry/GhostWillySprite011.png"
+		},
+		{
+			"name": "Happy",
+			"path": "res://Assets/Sprites/Groovy'sCuteGhostPack/Individuals/Willy/Happy/GhostWillySprite007.png"
+		},
+		{
+			"name": "Poof",
+			"path": "res://Assets/Sprites/Groovy'sCuteGhostPack/Individuals/Willy/Poof/GhostWillySprite003.png"
+		}
+	],
+	"scale": 800,
+	"theme": ""
+}
