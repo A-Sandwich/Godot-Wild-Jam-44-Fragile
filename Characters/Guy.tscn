@@ -32,7 +32,7 @@ animations = [ {
 radius = 5.0
 height = 4.0
 
-[node name="Guy" type="Node2D"]
+[node name="Guy" type="Node2D" groups=["guy"]]
 script = ExtResource( 2 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]

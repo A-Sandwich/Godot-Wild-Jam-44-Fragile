@@ -6,7 +6,7 @@ var game_started = false
 var animation_played = false
 
 func _ready():
-	if $Guy != null:
+	if get_tree().get_nodes_in_group("guy").size() > 0:
 		$Guy.set_target_location($Center.global_position)
 		$Guy.connect("arrived", self, "_on_arrival")
 		$Player.player_controlled = false
