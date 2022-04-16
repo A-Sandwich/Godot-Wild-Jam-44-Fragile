@@ -6,9 +6,11 @@ var game_started = false
 var animation_played = false
 
 func _ready():
-	$Guy.set_target_location($Center.global_position)
-	$Guy.connect("arrived", self, "_on_arrival")
-	$Player.player_controlled = false
+	if $Guy != null:
+		$Guy.set_target_location($Center.global_position)
+		$Guy.connect("arrived", self, "_on_arrival")
+		$Player.player_controlled = false
+		State.connect_win(self)
 
 func _on_arrival():
 	if $Center.global_position.distance_to($Guy/KinematicBody2D.global_position) < 10:
@@ -54,4 +56,16 @@ func state_check():
 	if win:
 		for spike in get_tree().get_nodes_in_group("spike"):
 			spike.disengage()
+		for goal in get_tree().get_nodes_in_group("win"):
+			goal.winnable()
 		animation_played = true
+
+func _on_win(win_name):
+	var player = $Player
+	player.get_parent().remove_child(player)
+	State.save_player(player)
+	State.save_direction(win_name)
+	var scene = PackedScene.new()
+	var result = scene.pack(self)
+	State.save_level(scene)
+	State.get_next_level(win_name)

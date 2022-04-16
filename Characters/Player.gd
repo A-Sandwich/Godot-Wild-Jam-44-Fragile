@@ -5,6 +5,10 @@ var player_controlled = true
 
 func _ready():
 	$AnimatedSprite.play("Idle")
+	if get_tree().get_nodes_in_group("darkness").size() > 0:
+		$Light2D.visible = true
+	else:
+		$Light2D.visible = false
 
 func _physics_process(delta):
 	if not is_alive or not player_controlled:
@@ -44,6 +48,10 @@ func ProcessInput():
 		#shatterSprite.texture = imgTexture
 		#add_child(shatterSprite)
 		#shatterSprite.shatter()
+	var movement_speed = SPEED
+	if attack_direction != Vector2.ZERO:
+		movement_speed = SPEED * 1.5
+		direction = attack_direction
 	$AnimatedSprite.animate(direction)
 	var result = _knocback()
 	if result != Vector2.ZERO:
@@ -51,8 +59,15 @@ func ProcessInput():
 			$Pushback.start()
 		move_and_slide(result)
 	else:
-		move_and_slide(direction * SPEED)
+		move_and_slide(direction * movement_speed)
 
 
 func _on_Pushback_timeout():
 	knockback = Vector2.ZERO
+
+func _damage(body):
+	._damage(body)
+	
+func increase_hp(amount):
+	hp += amount
+	print("Total hp", hp)

@@ -1,0 +1,5 @@
+[gd_scene format=2]
+
+[node name="CanvasModulate" type="CanvasModulate" groups=["darkness"]]
+z_index = 10
+color = Color( 0.309804, 0.32549, 0.521569, 1 )

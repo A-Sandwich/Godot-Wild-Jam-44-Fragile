@@ -19,22 +19,22 @@ func _attack(direction):
 	can_attack = false
 	if direction.x > 0:
 		if direction.y == 0:
-			$AnimationPlayer.play("Right", -1, attack_speed)
+			$AnimationPlayer.play("RightFull", -1, attack_speed)
 		elif direction.y < 0:
-			$AnimationPlayer.play("NE", -1, attack_speed)
+			$AnimationPlayer.play("UpRightFull", -1, attack_speed)
 		else:
-			$AnimationPlayer.play("SE", -1, attack_speed)
+			$AnimationPlayer.play("DownRightFull", -1, attack_speed)
 	elif direction.x < 0:
 		if direction.y == 0:
-			$AnimationPlayer.play("Left", -1, attack_speed)
+			$AnimationPlayer.play("LeftFull", -1, attack_speed)
 		elif direction.y < 0:
-			$AnimationPlayer.play("NW", -1, attack_speed)
+			$AnimationPlayer.play("UpLeftFull", -1, attack_speed)
 		else:
-			$AnimationPlayer.play("SW", -1, attack_speed)
+			$AnimationPlayer.play("DownLeftFull", -1, attack_speed)
 	elif direction.y > 0:
-		$AnimationPlayer.play("Down", -1, attack_speed)
+		$AnimationPlayer.play("DownFull", -1, attack_speed)
 	else:
-		$AnimationPlayer.play("Up", -1, attack_speed)
+		$AnimationPlayer.play("UpFull", -1, attack_speed)
 
 
 func _on_Cooldown_timeout():
@@ -53,3 +53,13 @@ func _on_Area2D_body_entered(body):
 	if not is_connected("damage", body, "_damage"):
 		connect("damage", body, "_damage")
 	emit_signal("damage", body)
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name != "RESET":
+		$AnimationPlayer.play("RESET")
+
+
+func _on_AnimationPlayer_animation_started(anim_name):
+	if anim_name != "RESET":
+		$AudioStreamPlayer2D.play()

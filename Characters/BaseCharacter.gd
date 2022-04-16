@@ -4,6 +4,7 @@ var SHATTERSPRITE = preload("res://Libs/ShatterSprite.tscn")
 var is_alive = true
 var speed = 150
 var knockback = Vector2.ZERO
+var hp = 1
 
 signal attack
 
@@ -33,7 +34,9 @@ func _die():
 func _damage(body):
 	if self != body:
 		return
-	_die()
+	hp -= 1
+	if hp == 0:
+		_die()
 
 func _parry(direction):
 	print("parry", name)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Levels/Sprite.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/GWJ/43-All-Cards.png" type="Texture" id=2]
@@ -7,12 +7,11 @@
 [ext_resource path="res://Levels/TileSet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Characters/Enemy.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Levels/Fire.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Levels/Darkness.tscn" type="PackedScene" id=8]
 
 [node name="Level00" type="Node2D"]
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-z_index = 10
-color = Color( 0.309804, 0.32549, 0.521569, 1 )
+[node name="CanvasModulate" parent="." instance=ExtResource( 8 )]
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false

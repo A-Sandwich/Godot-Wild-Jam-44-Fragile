@@ -64,20 +64,24 @@ one_shot = true
 
 [node name="Win" type="Node2D" parent="."]
 
-[node name="Exit" parent="Win" instance=ExtResource( 6 )]
+[node name="East" parent="Win" instance=ExtResource( 6 )]
 position = Vector2( 244, 29 )
 scale = Vector2( 3, 3 )
+direction = "East"
 
-[node name="Exit2" parent="Win" instance=ExtResource( 6 )]
+[node name="North" parent="Win" instance=ExtResource( 6 )]
 position = Vector2( -17, -122 )
 scale = Vector2( 3, 3 )
+direction = "North"
 
-[node name="Exit3" parent="Win" instance=ExtResource( 6 )]
+[node name="South" parent="Win" instance=ExtResource( 6 )]
 position = Vector2( -17, 184 )
 scale = Vector2( 3, 3 )
+direction = "South"
 
-[node name="Exit4" parent="Win" instance=ExtResource( 6 )]
+[node name="West" parent="Win" instance=ExtResource( 6 )]
 position = Vector2( -282, 30 )
 scale = Vector2( 3, 3 )
+direction = "West"
 
 [connection signal="timeout" from="Door" to="." method="_on_Door_timeout"]
