@@ -10,6 +10,7 @@ var grid_size = 10
 var level_rows = []
 var current_level = Vector2(0,0)
 var rng = RandomNumberGenerator.new()
+var is_new_scene = true
 
 func _ready():
 	rng.randomize()
@@ -70,5 +71,7 @@ func get_next_level(direction):
 	get_next_level_coordinates(direction)
 	var target_level = level_rows[current_level.x][current_level.y]
 	#if target_level == -1:
+	#	is_new_scene = false
 	#	return get_tree().change_scene(random_level())
+	#is_new_scene = true
 	return get_tree().change_scene_to(packed_levels[level_rows[current_level.x][current_level.y]])
