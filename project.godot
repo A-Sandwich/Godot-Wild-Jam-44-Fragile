@@ -81,7 +81,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Fragile"
-run/main_scene="res://Levels/Level00.tscn"
+run/main_scene="res://SplashScreen/SplashScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]

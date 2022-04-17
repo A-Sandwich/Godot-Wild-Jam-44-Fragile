@@ -47,8 +47,9 @@ func die():
 
 
 func _on_Area2D_body_entered(body):
-	print(body.name)
 	if body == self or body == get_parent():
+		return
+	if "enemy" in get_parent().get_groups() and "enemy" in body.get_groups():
 		return
 	if not is_connected("damage", body, "_damage"):
 		connect("damage", body, "_damage")

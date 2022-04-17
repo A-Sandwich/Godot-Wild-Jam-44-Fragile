@@ -5,10 +5,7 @@ var player_controlled = true
 
 func _ready():
 	$AnimatedSprite.play("Idle")
-	if get_tree().get_nodes_in_group("darkness").size() > 0:
-		$Light2D.visible = true
-	else:
-		$Light2D.visible = false
+	._ready()
 
 func _physics_process(delta):
 	if not is_alive or not player_controlled:
@@ -59,6 +56,7 @@ func ProcessInput():
 			$Pushback.start()
 		move_and_slide(result)
 	else:
+		most_recent_direction = direction
 		move_and_slide(direction * movement_speed)
 
 
@@ -71,3 +69,7 @@ func _damage(body):
 func increase_hp(amount):
 	hp += amount
 	print("Total hp", hp)
+
+
+func _on_Player_tree_entered():
+	detect_darkness()

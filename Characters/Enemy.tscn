@@ -25,21 +25,21 @@ region = Rect2( 48, 120, 24, 24 )
 atlas = ExtResource( 1 )
 region = Rect2( 72, 120, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 24, 24, 24 )
+region = Rect2( 0, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 24, 24, 24, 24 )
+region = Rect2( 24, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 48, 24, 24, 24 )
+region = Rect2( 48, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 72, 24, 24, 24 )
+region = Rect2( 72, 0, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
@@ -57,21 +57,21 @@ region = Rect2( 48, 96, 24, 24 )
 atlas = ExtResource( 1 )
 region = Rect2( 72, 96, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 24, 24 )
+region = Rect2( 0, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 1 )
-region = Rect2( 24, 0, 24, 24 )
+region = Rect2( 24, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 24, 24 )
+region = Rect2( 48, 24, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 72, 0, 24, 24 )
+region = Rect2( 72, 24, 24, 24 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
@@ -80,24 +80,24 @@ animations = [ {
 "name": "Die",
 "speed": 2.0
 }, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
-"loop": true,
-"name": "Walk",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
-"loop": true,
-"name": "Damage",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": false,
+"name": "Damage",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
 } ]
 
 [node name="Enemy" type="KinematicBody2D" groups=["enemy"]]
-z_index = 10
+z_index = 1000
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -124,5 +124,12 @@ texture = ExtResource( 4 )
 color = Color( 1, 1, 1, 0.760784 )
 energy = 0.7
 
+[node name="InitialCooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
 [connection signal="timeout" from="Pushback" to="." method="_on_Pushback_timeout"]
 [connection signal="timeout" from="Stunned" to="." method="_on_Stunned_timeout"]
+[connection signal="timeout" from="InitialCooldown" to="." method="_on_InitialCooldown_timeout"]
+[connection signal="tree_entered" from="InitialCooldown" to="." method="_on_InitialCooldown_tree_entered"]

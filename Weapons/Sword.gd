@@ -63,8 +63,8 @@ func parry(playAudio):
 func die():
 	$AnimationPlayer.stop()
 	$AudioStreamPlayer2D.stop()
-	$Parry.monitorable = false
-	$Parry.monitoring = false
+	$Parry.set_deferred("monitorable", false)
+	$Parry.set_deferred("monitoring", false)
 
 
 func _on_Parry_body_entered(body):

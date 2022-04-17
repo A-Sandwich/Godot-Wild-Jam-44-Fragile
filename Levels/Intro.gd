@@ -6,11 +6,16 @@ var game_started = false
 var animation_played = false
 
 func _ready():
+	var player = State.get_player()
+	player.global_position = Vector2(-65, -1)
+	add_child(player)
+	State.level_start()
 	if get_tree().get_nodes_in_group("guy").size() > 0:
 		$Guy.set_target_location($Center.global_position)
 		$Guy.connect("arrived", self, "_on_arrival")
 		$Player.player_controlled = false
-		State.connect_win(self)
+	for enemy in State.get_slain_enemies():
+		add_child(enemy)
 
 func _on_arrival():
 	if $Center.global_position.distance_to($Guy/KinematicBody2D.global_position) < 10:
@@ -33,7 +38,8 @@ func _on_timeline_end(timeline_name):
 
 func _on_Door_timeout():
 	for spike in get_tree().get_nodes_in_group("spike"):
-			spike.engage()
+		spike.engage()
+
 func _process(delta):
 	if game_started:
 		state_check()
@@ -54,18 +60,5 @@ func state_check():
 		pass
 
 	if win:
-		for spike in get_tree().get_nodes_in_group("spike"):
-			spike.disengage()
-		for goal in get_tree().get_nodes_in_group("win"):
-			goal.winnable()
+		State.level_done()
 		animation_played = true
-
-func _on_win(win_name):
-	var player = $Player
-	player.get_parent().remove_child(player)
-	State.save_player(player)
-	State.save_direction(win_name)
-	var scene = PackedScene.new()
-	var result = scene.pack(self)
-	State.save_level(scene)
-	State.get_next_level(win_name)

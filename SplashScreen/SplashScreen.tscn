@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/Images/GWJ/43-Theme.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Images/GWJ/43-All-Cards.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/GWJ/44-Theme-Fragile.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/GWJ/44-All-Cards.png" type="Texture" id=2]
 [ext_resource path="res://SplashScreen/SplashScreen.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]

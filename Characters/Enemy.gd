@@ -2,9 +2,11 @@ extends "res://Characters/BaseCharacter.gd"
 
 var player = null
 var stunned = false
+var can_attack = false
 
 func _ready():
-	speed = 100
+	._ready()
+	speed = State.rng.randi_range(75, 129)
 	$Sword.attack_speed = 0.5
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
@@ -22,8 +24,9 @@ func _physics_process(delta):
 			$Pushback.start()
 		move_and_slide(knockback)
 	elif not stunned:
-		if global_position.distance_to(player.global_position) <= 32:
+		if can_attack and global_position.distance_to(player.global_position) <= 32:
 			emit_signal("attack", direction)
+		most_recent_direction = direction
 		move_and_slide(direction * speed)
 
 func _parry(direction):
@@ -33,7 +36,6 @@ func _parry(direction):
 
 func _on_Pushback_timeout():
 	knockback = Vector2.ZERO
-	$AnimatedSprite.play("Damage")
 
 
 func _on_Stunned_timeout():
@@ -43,3 +45,15 @@ func _die():
 	._die()
 	$CollisionShape2D.queue_free()
 	$Sword.queue_free()
+
+
+func _on_InitialCooldown_timeout():
+	can_attack = true
+
+
+func _on_InitialCooldown_tree_entered():
+	detect_darkness()
+
+func _damage(body):
+	print(body.name, "))))))))))))))))))))))))))))))))))))")
+	._damage(body)

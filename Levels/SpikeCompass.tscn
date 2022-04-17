@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Levels/Spikes.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Levels/StartGameDetection.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Levels/SpikeCompass.gd" type="Script" id=3]
+
+[node name="Spikes" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="West1" parent="." instance=ExtResource( 1 )]
+position = Vector2( -240, 2 )
+direction = "west"
+
+[node name="West2" parent="." instance=ExtResource( 1 )]
+position = Vector2( -240, 23 )
+direction = "west"
+
+[node name="East1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 235, 29 )
+direction = "east"
+
+[node name="East2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 235, 3 )
+direction = "east"
+
+[node name="South1" parent="." instance=ExtResource( 1 )]
+position = Vector2( -11, 133 )
+direction = "south"
+
+[node name="South2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 10, 133 )
+direction = "south"
+
+[node name="North1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 9, -111 )
+direction = "north"
+
+[node name="North2" parent="." instance=ExtResource( 1 )]
+position = Vector2( -10, -111 )
+direction = "north"
+
+[node name="StartGameDetection" parent="." instance=ExtResource( 2 )]

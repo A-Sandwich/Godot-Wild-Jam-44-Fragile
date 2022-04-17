@@ -89,14 +89,4 @@ animation = "Light"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 11 )
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
-
-[node name="StarterTimer" type="Timer" parent="."]
-one_shot = true
-autostart = true
-
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="StarterTimer" to="." method="_on_StarterTimer_timeout"]

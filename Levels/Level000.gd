@@ -1,14 +1,24 @@
 extends Node2D
 
+var win = false
+var can_win = false
 
 func _ready():
+	State.level_start()
 	var player = State.get_player()
 	if player != null:
-		player.global_position = Vector2(100, 100)
 		get_tree().root.add_child(player)
-	var new_dialog = Dialogic.start('/Buffs/Buff-Intro')
-	new_dialog.connect("timeline_end", self, "_on_timeline_end")
-	add_child(new_dialog)
+	for enemy in State.get_slain_enemies():
+		add_child(enemy)
 
-func _on_timeline_end(timeline):
-	$Ghost.die()
+
+func _process(delta):
+	if win or not can_win:
+		return
+	if get_tree().get_nodes_in_group("ghost").size() == 0:
+		win = true
+		State.level_done()
+
+
+func _on_WinTimer_timeout():
+	can_win = true

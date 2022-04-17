@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Levels/FireCompass.gd" type="Script" id=1]
+[ext_resource path="res://Levels/Fire.tscn" type="PackedScene" id=2]
+
+[node name="Fire" type="Node2D" groups=["fire"]]
+script = ExtResource( 1 )
+
+[node name="Fire" parent="." instance=ExtResource( 2 )]
+position = Vector2( -196, -77 )
+
+[node name="Fire2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 200, 99 )
+
+[node name="Fire3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 206, -84 )
+
+[node name="Fire4" parent="." instance=ExtResource( 2 )]
+position = Vector2( -198, 104 )

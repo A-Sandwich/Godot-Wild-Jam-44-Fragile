@@ -1,16 +1,27 @@
 extends Node
 
+signal win
+signal level_done
+signal level_start
+signal light_fire
+
+var PLAYER = preload("res://Characters/Player.tscn")
+var ENEMY = preload("res://Characters/Enemy.tscn")
 var possible_levels = ["res://Levels/Level00.tscn"]
-var possible_buff_levels = ["res://Levels/Level000.gd"]
+var possible_buff_levels = ["res://Levels/Level000.tscn"]
 var packed_player = null
 var path_taken = []
-var packed_levels = []
 var level_index = 0
 var grid_size = 10
 var level_rows = []
 var current_level = Vector2(0,0)
 var rng = RandomNumberGenerator.new()
 var is_new_scene = true
+var number_of_enemies = 1
+var default_player_location = Vector2(25,25)
+var default_enemy_location = Vector2(100,100)
+var default_location = Vector2(50,75)
+var slain_enemies = []
 
 func _ready():
 	rng.randomize()
@@ -35,22 +46,64 @@ func save_player(packed_player):
 func save_direction(direction):
 	path_taken.append(direction)
 
-func save_level(level):
-	level_rows[current_level.x][current_level.y] = packed_levels.size()
-	packed_levels.append(level)
-
 func get_player():
-	return packed_player
+	var player = packed_player
+	packed_player = null
+	if player == null:
+		player = PLAYER.instance()
+	player.global_position = get_player_spawn_location()
+	return player
+	
+func get_player_spawn_location():
+	if path_taken.size() == 0:
+		return default_player_location
+	var most_recent_path = path_taken[-1]
+	var opposite_location = ""
+	if "North" in most_recent_path:
+		opposite_location = "south"
+	elif "South" in most_recent_path:
+		opposite_location = "north"
+	elif "East" in most_recent_path:
+		opposite_location = "west"
+	elif "West" in most_recent_path:
+		opposite_location = "east"
+	return get_location_coordinates(opposite_location)
 
+func get_location_coordinates(direction):
+	var target = get_tree().get_nodes_in_group(direction)
+	if target.size() > 0:
+		return target[0].get_center()
+	return default_location
+
+func get_enemy_spawn_location():
+	if path_taken.size() == 0:
+		return default_enemy_location
+	var locations = ["north", "south", "east", "west"]
+	var most_recent_path = path_taken[-1]
+	var result = Vector2(100, 100)
+	var invald_location = null
+	if "North" in most_recent_path:
+		invald_location = "south"
+	elif "South" in most_recent_path:
+		invald_location = "north"
+	elif "East" in most_recent_path:
+		invald_location = "west"
+	elif "West" in most_recent_path:
+		invald_location = "east"
+	locations.remove(invald_location)
+	for invalid in invalid_grid_locations():
+		if invalid in locations:
+			locations.remove(invalid)
+	var target_location = locations[rng.randi_range(0, locations.size() - 1)]
+	return get_location_coordinates(target_location)
 func connect_win(level):
 	for win in get_tree().get_nodes_in_group("win"):
 		win.connect("win", level, "_on_win")
 
 func random_level():
 	var level = null
-	var index = packed_levels.size()
-	if rng.randi() % 2 == 0:
-		level =  possible_buff_levels[rng.randi_range(0, possible_levels.size() - 1)]
+	if rng.randi_range(0, 100) < 15:
+		level =  possible_buff_levels[rng.randi_range(0, possible_buff_levels.size() - 1)]
 	else:
 		level = possible_levels[rng.randi_range(0, possible_levels.size() - 1)]
 	return level
@@ -69,9 +122,74 @@ func get_next_level_coordinates(direction):
 
 func get_next_level(direction):
 	get_next_level_coordinates(direction)
-	var target_level = level_rows[current_level.x][current_level.y]
-	#if target_level == -1:
-	#	is_new_scene = false
-	#	return get_tree().change_scene(random_level())
-	#is_new_scene = true
-	return get_tree().change_scene_to(packed_levels[level_rows[current_level.x][current_level.y]])
+	is_new_scene = true
+	var level = random_level()
+	level_index += 1
+	level_rows[current_level.x][current_level.y] = level_index
+	return get_tree().change_scene(level)
+
+
+func get_enemies():
+	var enemies = []
+	for index in range(number_of_enemies):
+		var enemy = ENEMY.instance()
+		enemy.global_position = get_enemy_spawn_location()
+		enemies.append(enemy)
+	return enemies
+
+func invalid_grid_locations():
+	var invald_directions = []
+	if current_level.x == 0 or level_rows[current_level.x - 1][current_level.y] != -1:
+		invald_directions.append("west")
+	if current_level.y == 0 or level_rows[current_level.x][current_level.y - 1] != -1:
+		invald_directions.append("north")
+	if current_level.x == (grid_size - 1) or level_rows[grid_size - 1][current_level.y] != -1:
+		invald_directions.append("west")
+	if current_level.y == (grid_size - 1) or level_rows[current_level.x][grid_size - 1] != -1:
+		invald_directions.append("south")
+		
+	return invald_directions
+
+func disengage_spikes():
+	var invalid_directions = invalid_grid_locations()
+	for spike in get_tree().get_nodes_in_group("spike"):
+		spike.disengage(invalid_directions)
+
+func engage_spikes():
+	for spike in get_tree().get_nodes_in_group("spike"):
+		spike.engage()
+
+func level_done():
+	emit_signal("level_done")
+	disengage_spikes()
+	for goal in get_tree().get_nodes_in_group("win"):
+		goal.winnable()
+
+func _on_win(win_name):
+	emit_signal("win")
+	var player = get_tree().get_nodes_in_group("player")[0]
+	player.get_parent().remove_child(player)
+	save_player(player)
+	save_direction(win_name)
+	slain_enemies.clear()
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		enemy.get_parent().remove_child(enemy)
+		slain_enemies.append(enemy)
+
+	increase_number_of_enemies()
+	print(win_name,"~~~~~~~~~~~~~~~~~~~~~~~~~~")
+	get_next_level(win_name)
+
+func increase_number_of_enemies():
+	number_of_enemies += 1
+
+func level_start():
+	light_fire()
+	emit_signal("level_start")
+
+func light_fire():
+	#yield(get_tree().create_timer(0.2), "timeout")
+	emit_signal("light_fire")
+
+func get_slain_enemies():
+	return slain_enemies

@@ -5,11 +5,19 @@ var is_alive = true
 var speed = 150
 var knockback = Vector2.ZERO
 var hp = 1
+var most_recent_direction = Vector2.ZERO
 
 signal attack
 
 func _ready():
 	add_to_group("damageable")
+	detect_darkness()
+
+func detect_darkness():
+	if get_tree().get_nodes_in_group("darkness").size() > 0 and is_alive:
+		$Light2D.visible = true
+	else:
+		$Light2D.visible = false
 
 
 func attack(direction):
@@ -34,6 +42,7 @@ func _die():
 func _damage(body):
 	if self != body:
 		return
+	knockback = most_recent_direction * -1
 	hp -= 1
 	if hp == 0:
 		_die()

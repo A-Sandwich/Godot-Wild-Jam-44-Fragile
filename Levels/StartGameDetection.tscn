@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Levels/StartGameDetection.gd" type="Script" id=1]
+
+[node name="StartGameDetection" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="East" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="East"]
+polygon = PoolVector2Array( 227, -25, 210, -5, 210, 27, 228, 48, 189, 35, 188, -5 )
+
+[node name="West" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="West"]
+polygon = PoolVector2Array( -230, -21, -209, -5, -209, 26, -229, 44, -196, 30, -195, -5, -211, -19 )
+
+[node name="North" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="North"]
+polygon = PoolVector2Array( -38, -101, -22, -87, 19, -86, 40, -101, 21, -65, -22, -66 )
+
+[node name="South" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="South"]
+polygon = PoolVector2Array( -42, 121, -24, 101, 17, 101, 38, 120, 18, 84, -25, 84 )
+
+[connection signal="body_entered" from="East" to="." method="_on_East_body_entered"]
+[connection signal="body_entered" from="West" to="." method="_on_West_body_entered"]
+[connection signal="body_entered" from="North" to="." method="_on_North_body_entered"]
+[connection signal="body_entered" from="South" to="." method="_on_South_body_entered"]
