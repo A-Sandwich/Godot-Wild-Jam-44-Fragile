@@ -68,7 +68,6 @@ func die():
 
 
 func _on_Parry_body_entered(body):
-	print(body.name)
 	if body == self or body == get_parent():
 		return
 	$Parry/ParryTimer.start()

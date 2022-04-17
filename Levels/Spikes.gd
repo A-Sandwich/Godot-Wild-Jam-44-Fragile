@@ -30,5 +30,4 @@ func _on_AnimatedSprite_animation_finished():
 
 func _on_Area2D_body_entered(body):
 	if body.has_method("_damage") and $AnimatedSprite.frame == 3:
-		print("Spike damage", body.name)
 		body._damage(body)

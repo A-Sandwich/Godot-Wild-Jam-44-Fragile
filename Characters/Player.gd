@@ -68,7 +68,6 @@ func _damage(body):
 	
 func increase_hp(amount):
 	hp += amount
-	print("Total hp", hp)
 
 
 func _on_Player_tree_entered():

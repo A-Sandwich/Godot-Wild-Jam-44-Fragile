@@ -9,6 +9,7 @@ func _ready():
 		add_child(player)
 	var enemies = State.get_enemies()
 	for enemy in enemies:
+		yield(get_tree().create_timer(0.1), "timeout")
 		add_child(enemy)
 	for enemy in State.get_slain_enemies():
 		add_child(enemy)

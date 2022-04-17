@@ -33,7 +33,6 @@ func _ready():
 	level_rows[0][0] = 0
 
 func buff(buff_name):
-	print(buff_name)
 	if buff_name == "shield":
 		var players= get_tree().get_nodes_in_group("player")
 		if players.size() > 0:
@@ -90,10 +89,10 @@ func get_enemy_spawn_location():
 		invald_location = "west"
 	elif "West" in most_recent_path:
 		invald_location = "east"
-	locations.remove(invald_location)
+	locations.erase(invald_location)
 	for invalid in invalid_grid_locations():
 		if invalid in locations:
-			locations.remove(invalid)
+			locations.erase(invalid)
 	var target_location = locations[rng.randi_range(0, locations.size() - 1)]
 	return get_location_coordinates(target_location)
 func connect_win(level):
@@ -177,7 +176,6 @@ func _on_win(win_name):
 		slain_enemies.append(enemy)
 
 	increase_number_of_enemies()
-	print(win_name,"~~~~~~~~~~~~~~~~~~~~~~~~~~")
 	get_next_level(win_name)
 
 func increase_number_of_enemies():

@@ -18,7 +18,6 @@ func talk():
 	add_child(new_dialog)
 
 func _on_timeline_end(timeline_name):
-	print(timeline_name)
 	player.player_controlled = true
 	die()
 

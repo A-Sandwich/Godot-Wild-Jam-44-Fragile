@@ -26,18 +26,16 @@ func attack(direction):
 			child.attack(direction)
 
 func _die():
-	print("die", name)
 	is_alive = false
 	for child in get_children():
-		print(child is AnimatedSprite)
 		if child is AnimatedSprite:
-			print("dying")
 			is_alive = false
 			child.stop()
 			child.play("Die") 
 		if child.is_in_group("weapon"):
 			child.die()
-
+	$Light2D.visible = false
+	$DeathNoise.play()
 
 func _damage(body):
 	if self != body:
@@ -48,7 +46,6 @@ func _damage(body):
 		_die()
 
 func _parry(direction):
-	print("parry", name)
 	is_alive = true
 	for child in get_children():
 		if child is AnimatedSprite:

@@ -25,7 +25,6 @@ zoom = Vector2( 0.4, 0.4 )
 position = Vector2( 33, 3 )
 
 [node name="CanvasModulate" parent="." instance=ExtResource( 7 )]
-visible = false
 
 [node name="Compass" parent="." instance=ExtResource( 4 )]
 

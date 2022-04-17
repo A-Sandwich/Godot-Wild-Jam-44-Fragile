@@ -55,5 +55,4 @@ func _on_InitialCooldown_tree_entered():
 	detect_darkness()
 
 func _damage(body):
-	print(body.name, "))))))))))))))))))))))))))))))))))))")
 	._damage(body)
