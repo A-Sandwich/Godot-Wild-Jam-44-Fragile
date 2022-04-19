@@ -1,9 +1,11 @@
 extends "res://Characters/BaseCharacter.gd"
 
-var SPEED = 200
 var player_controlled = true
+var rng = RandomNumberGenerator.new()
 
 func _ready():
+	rng.randomize()
+	speed = 200
 	$AnimatedSprite.play("Idle")
 	._ready()
 
@@ -45,9 +47,9 @@ func ProcessInput():
 		#shatterSprite.texture = imgTexture
 		#add_child(shatterSprite)
 		#shatterSprite.shatter()
-	var movement_speed = SPEED
+	var movement_speed = speed
 	if attack_direction != Vector2.ZERO:
-		movement_speed = SPEED * 1.5
+		movement_speed = speed * 1.5
 		direction = attack_direction
 	$AnimatedSprite.animate(direction)
 	var result = _knocback()
@@ -68,7 +70,10 @@ func _damage(body):
 	
 func increase_hp(amount):
 	hp += amount
-
+	
+func alter_speed(buff_or_debuff = 1):
+	var amount = rng.randi_range(25, 80) * buff_or_debuff
+	speed += amount
 
 func _on_Player_tree_entered():
 	detect_darkness()

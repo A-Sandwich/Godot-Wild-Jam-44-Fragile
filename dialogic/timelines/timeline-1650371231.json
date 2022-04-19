@@ -1,0 +1,162 @@
+{
+	"events": [
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649892549.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"animation": "1-fade_in.gd",
+			"animation_length": 1,
+			"animation_wait": true,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Angry",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": true
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "WHO DARE ENTER THE DOMAIN OF THE STOPPER OF HEARTS, THE UPSETTER OF STOMACHS,\nTHE INTIMIDATOR OF SOULS, THE GHOSTIE."
+		},
+		{
+			"choice": "The ... Ghostie?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Angry",
+			"text": "You try coming up with an ON BRAND NAME\nIt's a lot harder than it looks, what would we even call you? The Metal Dude?"
+		},
+		{
+			"character": "character-1649892549.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "SIR Metal Dude."
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Well \"SIR Metal Dude\"\nCongrats, your movement speed has been lowered. <3"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"speed"
+				],
+				"method_name": "buff",
+				"target_node_path": "/root/State"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"choice": "It is I, your LOYAL knight",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Happy",
+			"text": "My own knight? Wow, what a day!\nWell BRAVE KNIGHT, go fourth quickly, for your movement speed has been INCREASED.\nMake me proud <3"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"speed"
+				],
+				"method_name": "debuff",
+				"target_node_path": "/root/State"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_position": false,
+			"change_z_index": false,
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Poof",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 2,
+			"z_index": 0
+		},
+		{
+			"animation": "4-fade_out.gd",
+			"animation_length": 1,
+			"animation_wait": true,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 1,
+			"z_index": 0
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.1",
+		"file": "timeline-1650371231.json",
+		"name": "Buff001"
+	}
+}

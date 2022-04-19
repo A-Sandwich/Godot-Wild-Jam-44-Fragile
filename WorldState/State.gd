@@ -32,11 +32,27 @@ func _ready():
 		level_rows.append(col)
 	level_rows[0][0] = 0
 
+func get_player_from_tree():
+	var players= get_tree().get_nodes_in_group("player")
+	if players.size() > 0:
+		return players[0]
+	return null
+
 func buff(buff_name):
+	var player = get_player()
+	if player == null: return
+
 	if buff_name == "shield":
-		var players= get_tree().get_nodes_in_group("player")
-		if players.size() > 0:
-			players[0].increase_hp(1)
+		player.increase_hp(1)
+	if buff_name == "speed":
+		player.alter_speed()
+
+func debuff(buff_name):
+	var player = get_player()
+	if player == null: return
+
+	if buff_name == "speed":
+		player.alter_speed(-1)
 
 func save_player(packed_player):
 	self.packed_player = null

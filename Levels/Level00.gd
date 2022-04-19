@@ -7,11 +7,11 @@ func _ready():
 	var player = State.get_player()
 	if player != null:
 		add_child(player)
+	for enemy in State.get_slain_enemies():
+		add_child(enemy)
 	var enemies = State.get_enemies()
 	for enemy in enemies:
 		yield(get_tree().create_timer(0.1), "timeout")
-		add_child(enemy)
-	for enemy in State.get_slain_enemies():
 		add_child(enemy)
 	State.level_start()
 

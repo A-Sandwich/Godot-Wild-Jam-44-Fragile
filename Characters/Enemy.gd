@@ -46,10 +46,8 @@ func _die():
 	$CollisionShape2D.queue_free()
 	$Sword.queue_free()
 
-
 func _on_InitialCooldown_timeout():
 	can_attack = true
-
 
 func _on_InitialCooldown_tree_entered():
 	detect_darkness()
