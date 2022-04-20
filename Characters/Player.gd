@@ -67,6 +67,14 @@ func _on_Pushback_timeout():
 
 func _damage(body):
 	._damage(body)
+
+func alter_attack_speed(buff_or_debuff = 1):
+	var amount = rng.randi_range(.1, .25) * buff_or_debuff
+	$Sword.attack_speed = $Sword.attack_speed + amount
+
+func alter_weapon_size(buff_or_debuff = 1):
+	var amount = rng.randf_range(0.2, 0.5) * buff_or_debuff
+	$Sword.scale = $Sword.scale + Vector2(amount, amount)
 	
 func increase_hp(amount):
 	hp += amount

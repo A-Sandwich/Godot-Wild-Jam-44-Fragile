@@ -1,0 +1,154 @@
+{
+	"events": [
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649892549.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"animation": "1-fade_in.gd",
+			"animation_length": 1,
+			"animation_wait": true,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": true
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "..."
+		},
+		{
+			"character": "character-1649892978.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "..."
+		},
+		{
+			"choice": "Got any extra buffs about?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Angry",
+			"text": "You humans are all the same! Always begging for buffs. \nYou know when I was alive we had to create our own buffs through hard work and stuff.\nThe only \"Buff\" I have is a lower attack speed. Go crazy."
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"attack_speed"
+				],
+				"method_name": "debuff",
+				"target_node_path": "/root/State"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"choice": "You alright?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Happy",
+			"text": "Awwww you squishy humans are always worrying about others.\n<3 awwww you're so cute! Okay, focus GHOSTIE!\nI wouldn't want a cute little human like you to die, so how about we make you sword BIGGER!\nGood luck!"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"weapon_size"
+				],
+				"method_name": "buff",
+				"target_node_path": "/root/State"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Poof",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": true
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"animation": "4-fade_out.gd",
+			"animation_length": 1,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 1,
+			"z_index": 0
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.1",
+		"file": "timeline-1650412426.json",
+		"name": "Buff002"
+	}
+}

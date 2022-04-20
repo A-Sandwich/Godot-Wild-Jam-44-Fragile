@@ -9,6 +9,7 @@ var PLAYER = preload("res://Characters/Player.tscn")
 var ENEMY = preload("res://Characters/Enemy.tscn")
 var possible_levels = ["res://Levels/Level00.tscn"]
 var possible_buff_levels = ["res://Levels/Level000.tscn"]
+var possible_buff_dialogues = ["/Buffs/Buff001", "/Buffs/Buff002"]
 var packed_player = null
 var path_taken = []
 var level_index = 0
@@ -45,14 +46,18 @@ func buff(buff_name):
 	if buff_name == "shield":
 		player.increase_hp(1)
 	if buff_name == "speed":
-		player.alter_speed()
+		player.alter_speed(1)
+	if buff_name == "weapon_size":
+		player.alter_weapon_size(1)
 
-func debuff(buff_name):
+func debuff(debuff_name):
 	var player = get_player()
 	if player == null: return
 
-	if buff_name == "speed":
+	if debuff_name == "speed":
 		player.alter_speed(-1)
+	if debuff_name == "attack_speed":
+		player.alter_attack_speed(-1)
 
 func save_player(packed_player):
 	self.packed_player = null
