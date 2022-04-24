@@ -2,6 +2,8 @@ extends "res://Characters/BaseCharacter.gd"
 
 var player_controlled = true
 var rng = RandomNumberGenerator.new()
+var dash_speed_multiplier = 2.5
+var is_dashing = false
 
 func _ready():
 	rng.randomize()
@@ -24,18 +26,11 @@ func ProcessInput():
 		direction.x = 1
 	if Input.is_action_pressed("move_left"):
 		direction.x = -1
-	
-	var attack_direction = Vector2.ZERO
-	if Input.is_action_pressed("attack_up"):
-		attack_direction.y = -1
-	if Input.is_action_pressed("attack_down"):
-		attack_direction.y = 1
-	if Input.is_action_pressed("attack_right"):
-		attack_direction.x = 1
-	if Input.is_action_pressed("attack_left"):
-		attack_direction.x = -1
-	if attack_direction != Vector2.ZERO:
-		emit_signal("attack", attack_direction)
+
+	var movement_speed = speed
+	if not is_dashing and Input.is_action_just_pressed("attack"):
+		emit_signal("attack", direction)
+		_dash()
 
 		#$AnimatedSprite.stop()
 		#$AnimatedSprite.visible = false
@@ -47,10 +42,11 @@ func ProcessInput():
 		#shatterSprite.texture = imgTexture
 		#add_child(shatterSprite)
 		#shatterSprite.shatter()
-	var movement_speed = speed
-	if attack_direction != Vector2.ZERO:
-		movement_speed = speed * 1.5
-		direction = attack_direction
+	#if attack_direction != Vector2.ZERO:
+	if not is_dashing and Input.is_action_just_pressed("dash"):
+		$DashSound.play()
+		_dash()
+		#direction = attack_direction
 	$AnimatedSprite.animate(direction)
 	var result = _knocback()
 	if result != Vector2.ZERO:
@@ -59,8 +55,13 @@ func ProcessInput():
 		move_and_slide(result)
 	else:
 		most_recent_direction = direction
+		if is_dashing:
+			movement_speed *= dash_speed_multiplier
 		move_and_slide(direction * movement_speed)
 
+func _dash():
+	$Dash.start()
+	is_dashing = true
 
 func _on_Pushback_timeout():
 	knockback = Vector2.ZERO
@@ -68,20 +69,33 @@ func _on_Pushback_timeout():
 func _damage(body):
 	._damage(body)
 
+func alter_dash_speed(buff_or_debuff):
+	print("Altering dash speed")
+	var amount = rng.randi_range(.1, .25) * buff_or_debuff
+	$Sword.attack_speed = $Sword.attack_speed + amount
+
 func alter_attack_speed(buff_or_debuff = 1):
+	print("Altering attack speed")
 	var amount = rng.randi_range(.1, .25) * buff_or_debuff
 	$Sword.attack_speed = $Sword.attack_speed + amount
 
 func alter_weapon_size(buff_or_debuff = 1):
+	print("Altering weapon size")
 	var amount = rng.randf_range(0.2, 0.5) * buff_or_debuff
 	$Sword.scale = $Sword.scale + Vector2(amount, amount)
 	
 func increase_hp(amount):
+	print("Increasing hp")
 	hp += amount
 	
 func alter_speed(buff_or_debuff = 1):
+	print("Altering speed")
 	var amount = rng.randi_range(25, 80) * buff_or_debuff
 	speed += amount
 
 func _on_Player_tree_entered():
 	detect_darkness()
+
+
+func _on_Dash_timeout():
+	is_dashing = false

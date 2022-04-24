@@ -23,6 +23,7 @@ var default_player_location = Vector2(25,25)
 var default_enemy_location = Vector2(100,100)
 var default_location = Vector2(50,75)
 var slain_enemies = []
+var dialogues = []
 
 func _ready():
 	rng.randomize()
@@ -32,6 +33,17 @@ func _ready():
 			col.append(-1)
 		level_rows.append(col)
 	level_rows[0][0] = 0
+	dialogues = randomize_dialogue()
+	dialogues.push_front("/Buffs/Buff-Intro")
+
+func randomize_dialogue():
+	var result = []
+	var dialogues = possible_buff_dialogues.duplicate()
+	for dialogue_index in range(dialogues.size()):
+		var index = rng.randi_range(0, dialogues.size() - 1)
+		result.append(dialogues[index])
+		dialogues.remove(index)
+	return result
 
 func get_player_from_tree():
 	var players= get_tree().get_nodes_in_group("player")
@@ -212,3 +224,8 @@ func light_fire():
 
 func get_slain_enemies():
 	return slain_enemies
+
+func get_dialogue():
+	if dialogues.size() == 0:
+		dialogues = randomize_dialogue()
+	return dialogues.pop_front()

@@ -40,6 +40,8 @@ func _die():
 func _damage(body):
 	if self != body:
 		return
+	if "Player" in name:
+		print(hp)
 	knockback = most_recent_direction * -1
 	hp -= 1
 	if hp == 0:

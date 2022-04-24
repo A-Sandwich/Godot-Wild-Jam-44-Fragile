@@ -13,7 +13,8 @@ func _on_AnimatedSprite_animation_finished():
 		queue_free()
 
 func talk():
-	var new_dialog = Dialogic.start('/Buffs/Buff-Intro')
+	var dialog_path = State.get_dialogue()
+	var new_dialog = Dialogic.start(dialog_path)
 	new_dialog.connect("timeline_end", self, "_on_timeline_end")
 	add_child(new_dialog)
 
