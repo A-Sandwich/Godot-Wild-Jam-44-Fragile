@@ -35,6 +35,7 @@ func _ready():
 	level_rows[0][0] = 0
 	dialogues = randomize_dialogue()
 	dialogues.push_front("/Buffs/Buff-Intro")
+	dialogues.push_front(possible_buff_dialogues[0])
 
 func randomize_dialogue():
 	var result = []
@@ -52,7 +53,7 @@ func get_player_from_tree():
 	return null
 
 func buff(buff_name):
-	var player = get_player()
+	var player = get_player_from_tree()
 	if player == null: return
 
 	if buff_name == "shield":
@@ -63,7 +64,7 @@ func buff(buff_name):
 		player.alter_weapon_size(1)
 
 func debuff(debuff_name):
-	var player = get_player()
+	var player = get_player_from_tree()
 	if player == null: return
 
 	if debuff_name == "speed":
@@ -134,7 +135,7 @@ func connect_win(level):
 
 func random_level():
 	var level = null
-	if rng.randi_range(0, 100) < 15:
+	if rng.randi_range(0, 100) < 40:
 		level =  possible_buff_levels[rng.randi_range(0, possible_buff_levels.size() - 1)]
 	else:
 		level = possible_levels[rng.randi_range(0, possible_levels.size() - 1)]

@@ -45,6 +45,7 @@ func ProcessInput():
 	#if attack_direction != Vector2.ZERO:
 	if not is_dashing and Input.is_action_just_pressed("dash"):
 		$DashSound.play()
+		print(speed)
 		_dash()
 		#direction = attack_direction
 	$AnimatedSprite.animate(direction)
@@ -90,8 +91,8 @@ func increase_hp(amount):
 	
 func alter_speed(buff_or_debuff = 1):
 	print("Altering speed")
-	var amount = rng.randi_range(25, 80) * buff_or_debuff
-	speed += amount
+	var amount = rng.randi_range(40, 90) * buff_or_debuff
+	self.speed = self.speed + amount
 
 func _on_Player_tree_entered():
 	detect_darkness()

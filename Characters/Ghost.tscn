@@ -202,7 +202,6 @@ script = ExtResource( 7 )
 z_index = 100
 frames = SubResource( 35 )
 animation = "Default2Flower"
-frame = 1
 playing = true
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]

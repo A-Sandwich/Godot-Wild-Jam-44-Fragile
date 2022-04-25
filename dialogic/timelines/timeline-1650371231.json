@@ -80,7 +80,7 @@
 				"arguments": [
 					"speed"
 				],
-				"method_name": "buff",
+				"method_name": "debuff",
 				"target_node_path": "/root/State"
 			},
 			"event_id": "dialogic_042"
@@ -103,34 +103,13 @@
 				"arguments": [
 					"speed"
 				],
-				"method_name": "debuff",
+				"method_name": "buff",
 				"target_node_path": "/root/State"
 			},
 			"event_id": "dialogic_042"
 		},
 		{
 			"event_id": "dialogic_013"
-		},
-		{
-			"animation": "[Default]",
-			"animation_length": 0,
-			"change_mirror_portrait": false,
-			"change_position": false,
-			"change_z_index": false,
-			"character": "character-1649986973.json",
-			"event_id": "dialogic_002",
-			"mirror_portrait": false,
-			"portrait": "Poof",
-			"portrait_definition": "",
-			"position": {
-				"0": false,
-				"1": false,
-				"2": false,
-				"3": false,
-				"4": false
-			},
-			"type": 2,
-			"z_index": 0
 		},
 		{
 			"animation": "4-fade_out.gd",

@@ -7,9 +7,9 @@ func _ready():
 	State.level_start()
 	var player = State.get_player()
 	if player != null:
-		get_tree().root.add_child(player)
+		get_tree().root.call_deferred("add_child", player)
 	for enemy in State.get_slain_enemies():
-		add_child(enemy)
+		call_deferred("add_child", enemy)
 
 
 func _process(delta):
