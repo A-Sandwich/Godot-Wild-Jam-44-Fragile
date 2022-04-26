@@ -67,12 +67,12 @@
 			"character": "character-1649986973.json",
 			"event_id": "dialogic_001",
 			"portrait": "Angry",
-			"text": "You humans are all the same! Always begging for buffs. \nYou know when I was alive we had to create our own buffs through hard work and stuff.\nThe only \"Buff\" I have is a lower attack speed. Go crazy."
+			"text": "You humans are all the same! Always begging for buffs. \nYou know when I was alive we had to create our own buffs through hard work and stuff.\nThe only \"Buff\" I have is a lower dash distance. Go crazy."
 		},
 		{
 			"call_node": {
 				"arguments": [
-					"attack_speed"
+					"dash_distance"
 				],
 				"method_name": "debuff",
 				"target_node_path": "/root/State"

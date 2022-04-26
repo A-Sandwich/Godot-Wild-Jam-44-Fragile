@@ -5,6 +5,7 @@ var rng = RandomNumberGenerator.new()
 var dash_speed_multiplier = 2.5
 var is_dashing = false
 var dash_distance = 0.1
+var dash_distance_multiplier = 3
 
 func _ready():
 	rng.randomize()
@@ -48,7 +49,7 @@ func ProcessInput():
 	if not is_dashing and Input.is_action_just_pressed("dash") and $Dash.time_left == 0:
 		$DashSound.play()
 		print(speed)
-		_dash(dash_distance * 3)
+		_dash(dash_distance * dash_distance_multiplier)
 		#direction = attack_direction
 	$AnimatedSprite.animate(direction)
 	var result = _knocback()
@@ -86,9 +87,14 @@ func alter_attack_speed(buff_or_debuff = 1):
 
 func alter_weapon_size(buff_or_debuff = 1):
 	print("Altering weapon size")
-	var amount = rng.randf_range(0.2, 0.5) * buff_or_debuff
+	var amount = rng.randf_range(0.4, 0.6) * buff_or_debuff
 	$Sword.scale = $Sword.scale + Vector2(amount, amount)
+	$Sword.update()
 	
+func alter_dash_distance(buff_or_debuff = 1):
+	print("Altering dash distance")
+	dash_distance_multiplier += buff_or_debuff
+
 func increase_hp(amount):
 	print("Increasing hp")
 	hp += amount

@@ -71,6 +71,8 @@ func debuff(debuff_name):
 		player.alter_speed(-1)
 	if debuff_name == "attack_speed":
 		player.alter_attack_speed(-1)
+	if debuff_name == "dash_distance":
+		player.alter_dash_distance(-1)
 
 func save_player(packed_player):
 	self.packed_player = null
