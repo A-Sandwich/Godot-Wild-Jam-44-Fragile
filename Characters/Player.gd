@@ -4,6 +4,7 @@ var player_controlled = true
 var rng = RandomNumberGenerator.new()
 var dash_speed_multiplier = 2.5
 var is_dashing = false
+var dash_distance = 0.1
 
 func _ready():
 	rng.randomize()
@@ -28,9 +29,10 @@ func ProcessInput():
 		direction.x = -1
 
 	var movement_speed = speed
-	if not is_dashing and Input.is_action_just_pressed("attack"):
+	if not is_dashing and Input.is_action_just_pressed("attack") and $Dash.time_left == 0:
+		if $Sword/Cooldown.time_left == 0:
+			_dash(dash_distance, false)
 		emit_signal("attack", direction)
-		_dash()
 
 		#$AnimatedSprite.stop()
 		#$AnimatedSprite.visible = false
@@ -43,10 +45,10 @@ func ProcessInput():
 		#add_child(shatterSprite)
 		#shatterSprite.shatter()
 	#if attack_direction != Vector2.ZERO:
-	if not is_dashing and Input.is_action_just_pressed("dash"):
+	if not is_dashing and Input.is_action_just_pressed("dash") and $Dash.time_left == 0:
 		$DashSound.play()
 		print(speed)
-		_dash()
+		_dash(dash_distance * 3)
 		#direction = attack_direction
 	$AnimatedSprite.animate(direction)
 	var result = _knocback()
@@ -60,8 +62,10 @@ func ProcessInput():
 			movement_speed *= dash_speed_multiplier
 		move_and_slide(direction * movement_speed)
 
-func _dash():
+func _dash(distance, invulnerable = true):
+	$Dash.wait_time = distance
 	$Dash.start()
+	is_invulnerable = invulnerable
 	is_dashing = true
 
 func _on_Pushback_timeout():
@@ -100,3 +104,4 @@ func _on_Player_tree_entered():
 
 func _on_Dash_timeout():
 	is_dashing = false
+	is_invulnerable = false

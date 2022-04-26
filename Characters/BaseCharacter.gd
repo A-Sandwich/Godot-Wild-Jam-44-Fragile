@@ -6,6 +6,7 @@ var speed = 150
 var knockback = Vector2.ZERO
 var hp = 1
 var most_recent_direction = Vector2.ZERO
+var is_invulnerable = false
 
 signal attack
 
@@ -38,7 +39,7 @@ func _die():
 	$DeathNoise.play()
 
 func _damage(body):
-	if self != body:
+	if self != body or is_invulnerable:
 		return
 	if "Player" in name:
 		print(hp)

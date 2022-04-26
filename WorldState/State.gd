@@ -35,7 +35,7 @@ func _ready():
 	level_rows[0][0] = 0
 	dialogues = randomize_dialogue()
 	dialogues.push_front("/Buffs/Buff-Intro")
-	dialogues.push_front(possible_buff_dialogues[0])
+	dialogues.push_front(possible_buff_dialogues[1])
 
 func randomize_dialogue():
 	var result = []

@@ -723,6 +723,7 @@ anims/UpLeftFull = SubResource( 16 )
 anims/UpRightFull = SubResource( 17 )
 
 [node name="Cooldown" type="Timer" parent="."]
+one_shot = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
