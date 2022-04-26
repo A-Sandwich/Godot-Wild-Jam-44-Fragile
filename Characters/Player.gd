@@ -116,12 +116,14 @@ func _on_Dash_timeout():
 func _apply_attribute_change(attribute_name, buff_or_debuff):
 	if attribute_name == "speed":
 		alter_speed(buff_or_debuff)
-	if attribute_name == "attack_speed":
+	elif attribute_name == "attack_speed":
 		alter_attack_speed(buff_or_debuff)
-	if attribute_name == "dash_distance":
+	elif attribute_name == "dash_distance":
 		alter_dash_distance(buff_or_debuff)
-	if attribute_name == "weapon_size":
+	elif attribute_name == "weapon_size":
 		alter_weapon_size(buff_or_debuff)
-	if attribute_name == "shield":
+	elif attribute_name == "shield":
 		increase_hp(buff_or_debuff)
+	elif attribute_name == "player_size":
+		pass # needs to be implemented
 
