@@ -4,6 +4,7 @@ signal win
 signal level_done
 signal level_start
 signal light_fire
+signal alter_attribute
 
 var PLAYER = preload("res://Characters/Player.tscn")
 var ENEMY = preload("res://Characters/Enemy.tscn")
@@ -46,33 +47,11 @@ func randomize_dialogue():
 		dialogues.remove(index)
 	return result
 
-func get_player_from_tree():
-	var players= get_tree().get_nodes_in_group("player")
-	if players.size() > 0:
-		return players[0]
-	return null
-
 func buff(buff_name):
-	var player = get_player_from_tree()
-	if player == null: return
-
-	if buff_name == "shield":
-		player.increase_hp(1)
-	if buff_name == "speed":
-		player.alter_speed(1)
-	if buff_name == "weapon_size":
-		player.alter_weapon_size(1)
+	emit_signal("alter_attribute", buff_name, 1)
 
 func debuff(debuff_name):
-	var player = get_player_from_tree()
-	if player == null: return
-
-	if debuff_name == "speed":
-		player.alter_speed(-1)
-	if debuff_name == "attack_speed":
-		player.alter_attack_speed(-1)
-	if debuff_name == "dash_distance":
-		player.alter_dash_distance(-1)
+	emit_signal("alter_attribute", debuff_name, -1)
 
 func save_player(packed_player):
 	self.packed_player = null

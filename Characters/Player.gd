@@ -12,6 +12,7 @@ func _ready():
 	speed = 200
 	$AnimatedSprite.play("Idle")
 	._ready()
+	$"/root/State".connect("alter_attribute", self, "_apply_attribute_change")
 
 func _physics_process(delta):
 	if not is_alive or not player_controlled:
@@ -111,3 +112,16 @@ func _on_Player_tree_entered():
 func _on_Dash_timeout():
 	is_dashing = false
 	is_invulnerable = false
+
+func _apply_attribute_change(attribute_name, buff_or_debuff):
+	if attribute_name == "speed":
+		alter_speed(buff_or_debuff)
+	if attribute_name == "attack_speed":
+		alter_attack_speed(buff_or_debuff)
+	if attribute_name == "dash_distance":
+		alter_dash_distance(buff_or_debuff)
+	if attribute_name == "weapon_size":
+		alter_weapon_size(buff_or_debuff)
+	if attribute_name == "shield":
+		increase_hp(buff_or_debuff)
+

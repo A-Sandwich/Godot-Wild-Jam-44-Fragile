@@ -1,0 +1,160 @@
+{
+	"events": [
+		{
+			"animation": "1-fade_in.gd",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": true
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649892549.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 0,
+			"z_index": 0
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "PEW PEW!"
+		},
+		{
+			"character": "character-1649892549.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "???\n???"
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "PEW PEW!"
+		},
+		{
+			"choice": "I'm Hit CAPIN'!",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Happy",
+			"text": "Can't have that! Increasing thrusters!\n(Dash distance increased)"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"dash_distance"
+				],
+				"method_name": "buff",
+				"target_node_path": "/root/State"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"choice": "Pew Pew?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "Angry",
+			"text": "Tango returning fire!\nFiring shrink ray!\n(Weapon size decreased)"
+		},
+		{
+			"call_node": {
+				"arguments": [
+					""
+				],
+				"method_name": "debuff",
+				"target_node_path": "/root/State"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"event_id": "dialogic_013"
+		},
+		{
+			"animation": "[Default]",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_position": false,
+			"change_z_index": false,
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Poof",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 2,
+			"z_index": 0
+		},
+		{
+			"animation": "4-fade_out.gd",
+			"animation_length": 0,
+			"change_mirror_portrait": false,
+			"change_z_index": false,
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_002",
+			"mirror_portrait": false,
+			"portrait": "Default",
+			"portrait_definition": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			},
+			"type": 1,
+			"z_index": 0
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.4.1",
+		"file": "timeline-1650936588.json",
+		"name": "Buff003"
+	}
+}
