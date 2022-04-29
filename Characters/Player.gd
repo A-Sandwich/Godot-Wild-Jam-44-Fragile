@@ -96,9 +96,9 @@ func alter_dash_distance(buff_or_debuff = 1):
 	print("Altering dash distance")
 	dash_distance_multiplier += buff_or_debuff
 
-func increase_hp(amount):
-	print("Increasing hp")
-	hp += amount
+func alter_hp(buff_or_debuff = 1):
+	print("altering hp")
+	hp += buff_or_debuff
 	
 func alter_speed(buff_or_debuff = 1):
 	print("Altering speed")
@@ -108,6 +108,10 @@ func alter_speed(buff_or_debuff = 1):
 func _on_Player_tree_entered():
 	detect_darkness()
 
+func alter_player_size(buff_or_debuff = 1):
+	print("Altering scale")
+	var amount = rng.randf_range(0.25, 0.5) * buff_or_debuff
+	self.scale = self.scale + Vector2(amount, amount)
 
 func _on_Dash_timeout():
 	is_dashing = false
@@ -123,7 +127,7 @@ func _apply_attribute_change(attribute_name, buff_or_debuff):
 	elif attribute_name == "weapon_size":
 		alter_weapon_size(buff_or_debuff)
 	elif attribute_name == "shield":
-		increase_hp(buff_or_debuff)
+		alter_hp(buff_or_debuff)
 	elif attribute_name == "player_size":
-		pass # needs to be implemented
+		alter_player_size(buff_or_debuff)
 
