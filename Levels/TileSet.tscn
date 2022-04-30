@@ -1874,5 +1874,6 @@ polygon = PoolVector2Array( 3, 5, 3, 5, 3, 7, 4, 7, 4, 5, 16, 5, 16, 15, 0, 15, 
 tile_set = SubResource( 1 )
 cell_size = Vector2( 16, 16 )
 cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
+collision_layer = 17
 format = 1
 tile_data = PoolIntArray( 2818115, 1, 2 )

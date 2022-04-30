@@ -11,6 +11,7 @@ var is_stunned = false
 var can_attack = false
 
 signal attack
+signal range_attack
 
 func _ready():
 	add_to_group("damageable")

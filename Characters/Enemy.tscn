@@ -97,7 +97,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Enemy" type="KinematicBody2D" groups=["enemy"]]
+[node name="Enemy" type="KinematicBody2D" groups=["Damagable", "Enemy", "damagable", "enemy"]]
 z_index = 1000
 script = ExtResource( 2 )
 

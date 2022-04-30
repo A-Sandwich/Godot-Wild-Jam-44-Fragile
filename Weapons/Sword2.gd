@@ -10,6 +10,8 @@ func _ready():
 	get_parent().connect("attack", self, "_attack")
 	for damageable in get_tree().get_nodes_in_group("damageable"):
 		connect("damage", damageable, "_damage")
+	
+	disable_sword()
 
 func _update_cooldown(value):
 	$Cooldown.wait_time = value
@@ -54,13 +56,13 @@ func die():
 	$AudioStreamPlayer2D.stop()
 	$Sprite.visible = false
 
-
 func _on_Area2D_body_entered(body):
+	print(body.name)
 	if body == self or body == get_parent():
 		return
 	if "enemy" in get_parent().get_groups() and "enemy" in body.get_groups():
 		return
-	if not is_connected("damage", body, "_damage"):
+	if not is_connected("damage", body, "_damage") and "damagable" in body.get_groups():
 		connect("damage", body, "_damage")
 	emit_signal("damage", body)
 
@@ -68,10 +70,12 @@ func _on_Area2D_body_entered(body):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name != "RESET":
 		$AnimationPlayer.play("RESET")
+		disable_sword()
+
+func disable_sword():
 		visible = false
 		set_deferred("$Sprite/Area2D.monitoring", false)
 		set_deferred("$Sprite/Area2D.monitorable", false)
-
 
 func _on_AnimationPlayer_animation_started(anim_name):
 	if anim_name != "RESET":

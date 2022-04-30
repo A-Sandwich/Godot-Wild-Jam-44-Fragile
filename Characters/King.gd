@@ -72,15 +72,23 @@ func get_direction_to_player():
 	var knockback = _knocback()
 	
 	if not is_stunned:
-		if can_attack and global_position.distance_to(player.global_position) <= 100:
-			emit_signal("attack", direction)
-			is_cooling = true
-			$ActionCooldown.start()
+		if can_attack:
+			var distance_to_player = global_position.distance_to(player.global_position)
+			if distance_to_player > 200 and distance_to_player < 400:
+				emit_signal("range_attack", direction)
+				start_cooldown()
+			elif distance_to_player <= 100:
+				emit_signal("attack", direction)
+				start_cooldown()
 		most_recent_direction = direction
 	
 	if direction == null:
 		return Vector2.ZERO
 	return direction
+
+func start_cooldown():
+	is_cooling = true
+	$ActionCooldown.start()
 
 func _turn_evil():
 	is_evil = true
