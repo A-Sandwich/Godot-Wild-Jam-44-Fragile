@@ -1,11 +1,11 @@
 {
-	"color": "#ff446350",
+	"color": "#ffe39347",
 	"description": "",
 	"display_name": "",
 	"display_name_bool": false,
-	"id": "character-1649892978.json",
+	"id": "character-1651279338.json",
 	"mirror_portraits": true,
-	"name": "Guy",
+	"name": "King",
 	"nickname": "",
 	"nickname_bool": false,
 	"offset_x": 150,
@@ -13,7 +13,11 @@
 	"portraits": [
 		{
 			"name": "Default",
-			"path": "res://Assets/Sprites/camelot_ v1.0/GuyPortrait.png"
+			"path": "res://Assets/Sprites/camelot_ v1.0/KingPortrait.png"
+		},
+		{
+			"name": "EvilKingPortrait",
+			"path": "res://Assets/Sprites/camelot_ v1.0/EvilKingPortrait.png"
 		}
 	],
 	"scale": 700,

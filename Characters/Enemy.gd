@@ -1,8 +1,6 @@
 extends "res://Characters/BaseCharacter.gd"
 
 var player = null
-var stunned = false
-var can_attack = false
 
 func _ready():
 	._ready()
@@ -23,7 +21,7 @@ func _physics_process(delta):
 		if $Pushback.time_left == 0:
 			$Pushback.start()
 		move_and_slide(knockback)
-	elif not stunned:
+	elif not is_stunned:
 		if can_attack and global_position.distance_to(player.global_position) <= 32:
 			emit_signal("attack", direction)
 		most_recent_direction = direction
@@ -32,14 +30,14 @@ func _physics_process(delta):
 func _parry(direction):
 	._parry(direction)
 	$Stunned.start()
-	stunned = true
+	is_stunned = true
 
 func _on_Pushback_timeout():
 	knockback = Vector2.ZERO
 
 
 func _on_Stunned_timeout():
-	stunned = false
+	is_stunned = false
 
 func _die():
 	._die()

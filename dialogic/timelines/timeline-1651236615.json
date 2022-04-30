@@ -1,14 +1,14 @@
 {
 	"events": [
 		{
-			"animation": "1-fade_in.gd",
+			"animation": "[Default]",
 			"animation_length": 0,
 			"change_mirror_portrait": false,
 			"change_z_index": false,
 			"character": "character-1649986973.json",
 			"event_id": "dialogic_002",
 			"mirror_portrait": false,
-			"portrait": "Default",
+			"portrait": "Angry",
 			"portrait_definition": "",
 			"position": {
 				"0": false,
@@ -44,13 +44,13 @@
 			"character": "character-1649986973.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "PEW PEW!"
+			"text": "FE FI FO FUM"
 		},
 		{
 			"character": "character-1649892549.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "???\n???"
+			"text": "Pardon?"
 		},
 		{
 			"character": "character-1649986973.json",
@@ -59,10 +59,49 @@
 
 			],
 			"portrait": "",
-			"question": "PEW PEW!"
+			"question": "FE FI FO FUM"
 		},
 		{
-			"choice": "I'm Hit CAPIN'!",
+			"choice": "You smell the blood of an Englishman?",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_010",
+			"options": [
+
+			],
+			"portrait": "",
+			"question": "Be he alive, or be he dead"
+		},
+		{
+			"choice": "Oh no",
+			"condition": "",
+			"definition": "",
+			"event_id": "dialogic_011",
+			"value": ""
+		},
+		{
+			"character": "character-1649986973.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Well SOMEONE is as bafoonish as a GIANT. How about I increase your size.\nMaybe making you easier to hit will allow someone to knock some sense into ya."
+		},
+		{
+			"call_node": {
+				"arguments": [
+					"player_size"
+				],
+				"method_name": "debuff",
+				"target_node_path": "/root/State"
+			},
+			"event_id": "dialogic_042"
+		},
+		{
+			"choice": "I'll grind his bones to make my bread?",
 			"condition": "",
 			"definition": "",
 			"event_id": "dialogic_011",
@@ -72,12 +111,12 @@
 			"character": "character-1649986973.json",
 			"event_id": "dialogic_001",
 			"portrait": "Happy",
-			"text": "Can't have that! Increasing thrusters!\n(Dash distance increased)"
+			"text": "BRAVO!!! I do love stories about beans! How about I make ya smaller and harder to hit?\nAlso in a way, I'm gianter (ㆁωㆁ*)"
 		},
 		{
 			"call_node": {
 				"arguments": [
-					"dash_distance"
+					"player_size"
 				],
 				"method_name": "buff",
 				"target_node_path": "/root/State"
@@ -85,7 +124,10 @@
 			"event_id": "dialogic_042"
 		},
 		{
-			"choice": "Pew Pew?",
+			"event_id": "dialogic_013"
+		},
+		{
+			"choice": "Pardon?",
 			"condition": "",
 			"definition": "",
 			"event_id": "dialogic_011",
@@ -94,13 +136,13 @@
 		{
 			"character": "character-1649986973.json",
 			"event_id": "dialogic_001",
-			"portrait": "Angry",
-			"text": "Tango returning fire!\nFiring shrink ray!\n(Weapon size decreased)"
+			"portrait": "",
+			"text": "Well SOMEONE is as bafoonish as a GIANT. How about I increase your size.\nMaybe making you easier to hit will allow someone to knock some sense into ya."
 		},
 		{
 			"call_node": {
 				"arguments": [
-					"weapon_size"
+					"player_size"
 				],
 				"method_name": "debuff",
 				"target_node_path": "/root/State"
@@ -111,10 +153,10 @@
 			"event_id": "dialogic_013"
 		},
 		{
-			"animation": "[Default]",
-			"animation_length": 0,
+			"animation": "4-fade_out.gd",
+			"animation_length": 1,
+			"animation_wait": true,
 			"change_mirror_portrait": false,
-			"change_position": false,
 			"change_z_index": false,
 			"character": "character-1649986973.json",
 			"event_id": "dialogic_002",
@@ -126,27 +168,7 @@
 				"1": false,
 				"2": false,
 				"3": false,
-				"4": false
-			},
-			"type": 2,
-			"z_index": 0
-		},
-		{
-			"animation": "4-fade_out.gd",
-			"animation_length": 0,
-			"change_mirror_portrait": false,
-			"change_z_index": false,
-			"character": "character-1649986973.json",
-			"event_id": "dialogic_002",
-			"mirror_portrait": false,
-			"portrait": "Default",
-			"portrait_definition": "",
-			"position": {
-				"0": false,
-				"1": false,
-				"2": false,
-				"3": false,
-				"4": false
+				"4": true
 			},
 			"type": 1,
 			"z_index": 0
@@ -154,7 +176,7 @@
 	],
 	"metadata": {
 		"dialogic-version": "1.4.1",
-		"file": "timeline-1650936588.json",
-		"name": "Buff003"
+		"file": "timeline-1651236615.json",
+		"name": "Buff004"
 	}
 }

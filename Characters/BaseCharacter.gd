@@ -7,6 +7,8 @@ var knockback = Vector2.ZERO
 var hp = 1
 var most_recent_direction = Vector2.ZERO
 var is_invulnerable = false
+var is_stunned = false
+var can_attack = false
 
 signal attack
 
