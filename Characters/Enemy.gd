@@ -39,8 +39,8 @@ func _on_Pushback_timeout():
 func _on_Stunned_timeout():
 	is_stunned = false
 
-func _die():
-	._die()
+func _die(animation = "Die"):
+	._die(animation)
 	$CollisionShape2D.queue_free()
 	$Sword.queue_free()
 

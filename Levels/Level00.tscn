@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Levels/Sprite.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/GWJ/43-All-Cards.png" type="Texture" id=2]
 [ext_resource path="res://Libs/ShardEmitter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Levels/Compass.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Levels/TileSet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Characters/King.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Levels/Darkness.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Levels/Level00.gd" type="Script" id=9]
 
@@ -43,5 +44,8 @@ zoom = Vector2( 0.4, 0.4 )
 [node name="WinTimeout" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="King" parent="." instance=ExtResource( 6 )]
+position = Vector2( 134, -12 )
 
 [connection signal="timeout" from="WinTimeout" to="." method="_on_WinTimeout_timeout"]

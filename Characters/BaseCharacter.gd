@@ -28,13 +28,13 @@ func attack(direction):
 		if child.is_in_group("weapon"):
 			child.attack(direction)
 
-func _die():
+func _die(animation = "Die"):
 	is_alive = false
 	for child in get_children():
 		if child is AnimatedSprite:
 			is_alive = false
 			child.stop()
-			child.play("Die") 
+			child.play(animation) 
 		if child.is_in_group("weapon"):
 			child.die()
 	$Light2D.visible = false

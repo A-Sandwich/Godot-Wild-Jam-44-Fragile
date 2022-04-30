@@ -11,12 +11,21 @@ func _ready():
 	for damageable in get_tree().get_nodes_in_group("damageable"):
 		connect("damage", damageable, "_damage")
 
+func _update_cooldown(value):
+	$Cooldown.wait_time = value
+
+func _update_attack_speed(value):
+	attack_speed = value
+
 func _attack(direction):
 	if not can_attack:
 		return
 	previous_direction = direction
 	$Cooldown.start()
 	can_attack = false
+	visible = true
+	set_deferred("$Sprite/Area2D.monitoring", true)
+	set_deferred("$Sprite/Area2D.monitorable", true)
 	if direction.x > 0:
 		if direction.y == 0:
 			$AnimationPlayer.play("RightFull", -1, attack_speed)
@@ -59,6 +68,9 @@ func _on_Area2D_body_entered(body):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name != "RESET":
 		$AnimationPlayer.play("RESET")
+		visible = false
+		set_deferred("$Sprite/Area2D.monitoring", false)
+		set_deferred("$Sprite/Area2D.monitorable", false)
 
 
 func _on_AnimationPlayer_animation_started(anim_name):
