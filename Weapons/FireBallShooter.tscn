@@ -1,12 +1,37 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Weapons/FireBallShooter.gd" type="Script" id=1]
+[ext_resource path="res://Weapons/SpawnPoints.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Sprites/camelot_ v1.0/EvilKingPortrait.png" type="Texture" id=3]
+[ext_resource path="res://SpawnPoint.tscn" type="PackedScene" id=4]
 
 [node name="FireBallShooter" type="Node2D" groups=["Weapon", "weapon"]]
 script = ExtResource( 1 )
 
 [node name="Cooldown" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 0.2
 one_shot = true
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 3 )
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="SpawnPoint" parent="SpawnPoints" instance=ExtResource( 4 )]
+position = Vector2( 5, -14 )
+
+[node name="SpawnPoint2" parent="SpawnPoints" instance=ExtResource( 4 )]
+position = Vector2( 10, -9 )
+
+[node name="SpawnPoint3" parent="SpawnPoints" instance=ExtResource( 4 )]
+position = Vector2( 13, 0 )
+
+[node name="SpawnPoint4" parent="SpawnPoints" instance=ExtResource( 4 )]
+position = Vector2( 5, 14 )
+
+[node name="SpawnPoint5" parent="SpawnPoints" instance=ExtResource( 4 )]
+position = Vector2( 10, 9 )
 
 [connection signal="timeout" from="Cooldown" to="." method="_on_Cooldown_timeout"]

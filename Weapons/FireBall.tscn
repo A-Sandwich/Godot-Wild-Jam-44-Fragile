@@ -211,6 +211,7 @@ rotation = -1.57079
 z_index = 50
 frames = SubResource( 19 )
 animation = "Flying"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

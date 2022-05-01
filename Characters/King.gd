@@ -8,8 +8,10 @@ var player = null
 var can_move = true
 var range_attack_cooldown = 2.5
 var attack_cooldown = 0.75
+var is_lowering = false
 
 func _ready():
+	$RangedAttackAnimation.play("RESET")
 	$AnimatedSprite.play("Idle")
 	_turn_evil()
 	hp = 10
@@ -34,13 +36,16 @@ func get_direction_to_target():
 		return Vector2.ZERO
 	
 	var direction = global_position.direction_to(target_location)
-	if direction.x < 0:
-		$AnimatedSprite.flip_h = true
-	elif direction.x > 0:
-		$AnimatedSprite.flip_h = false
-		
+	flip_sprite(direction)
 	return direction
 
+func flip_sprite(direction):
+	if direction.x < 0:
+		emit_signal("flip_h", true)
+		$AnimatedSprite.flip_h = true
+	elif direction.x > 0:
+		emit_signal("flip_h", false)
+		$AnimatedSprite.flip_h = false
 
 func _physics_process(delta):
 	var direction = Vector2.ZERO
@@ -74,20 +79,25 @@ func get_direction_to_player():
 
 	var direction = global_position.direction_to(player.global_position)
 	var knockback = _knocback()
+
+	if is_attacking_range():
+		print("Attacking at range!")
+		emit_signal("range_attack", direction)
 	
 	if not is_stunned:
 		if can_attack:
 			var distance_to_player = global_position.distance_to(player.global_position)
-			if distance_to_player > 200 and distance_to_player < 400:
-				emit_signal("range_attack", direction)
-				start_cooldown(range_attack_cooldown)
-			elif distance_to_player <= 100:
+#			if distance_to_player > 200 and distance_to_player < 400:
+#				emit_signal("range_attack", direction)
+#				start_cooldown(range_attack_cooldown)
+			if distance_to_player <= 50:
 				emit_signal("attack", direction)
 				start_cooldown(attack_cooldown)
 		most_recent_direction = direction
 	
 	if direction == null:
 		return Vector2.ZERO
+	flip_sprite(direction)
 	return direction
 
 func start_cooldown(attack_cooldown = 1):
@@ -119,3 +129,24 @@ func _damage(body):
 
 func _on_AnimatedSprite_animation_finished():
 	pass
+
+
+func _on_RangedAttackTimer_timeout():
+	can_move = false
+	is_invulnerable = true
+	$RangedAttackAnimation.play("RangedAttack")
+
+
+func _on_RangedAttackAnimation_animation_finished(anim_name):
+	if anim_name == "RangedAttack" and !is_lowering:
+		$RangedAttackAnimation.play("Bounce")
+	elif anim_name == "RangedAttack" and is_lowering:
+		can_move = true
+		is_invulnerable = false
+		
+func is_attacking_range():
+	return $RangedAttackAnimation.current_animation == "Bounce" and $RangedAttackAnimation.is_playing()
+
+func _ammo_out():
+	$RangedAttackAnimation.play_backwards("RangedAttack")
+	is_lowering = true

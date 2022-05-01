@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal damage
+signal launch
 
 var direction = Vector2.ZERO
 var speed = 125
@@ -40,3 +41,5 @@ func _on_AnimatedSprite_animation_finished():
 		can_move = true
 		$Trail.emitting = true
 		$AnimatedSprite.play("Flying")
+		yield(get_tree().create_timer(0.5), "timeout")
+		emit_signal("launch")

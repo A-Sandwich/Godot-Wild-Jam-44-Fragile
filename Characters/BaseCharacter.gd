@@ -1,5 +1,10 @@
 extends KinematicBody2D
 
+signal flip_h
+signal attack
+signal range_attack
+signal stop_attack
+
 var SHATTERSPRITE = preload("res://Libs/ShatterSprite.tscn")
 var is_alive = true
 var speed = 150
@@ -9,10 +14,6 @@ var most_recent_direction = Vector2.ZERO
 var is_invulnerable = false
 var is_stunned = false
 var can_attack = false
-
-signal attack
-signal range_attack
-signal stop_attack
 
 func _ready():
 	add_to_group("damageable")
