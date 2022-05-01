@@ -12,6 +12,7 @@ var can_attack = false
 
 signal attack
 signal range_attack
+signal stop_attack
 
 func _ready():
 	add_to_group("damageable")
@@ -42,6 +43,7 @@ func _die(animation = "Die"):
 	$DeathNoise.play()
 
 func _damage(body):
+	emit_signal("stop_attack")
 	if self != body or is_invulnerable:
 		return
 	if "Player" in name:

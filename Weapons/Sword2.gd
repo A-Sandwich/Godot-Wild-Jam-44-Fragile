@@ -8,6 +8,7 @@ var previous_direction = Vector2.ZERO
 
 func _ready():
 	get_parent().connect("attack", self, "_attack")
+	get_parent().connect("stop_attack", self, "_stop_attack")
 	for damageable in get_tree().get_nodes_in_group("damageable"):
 		connect("damage", damageable, "_damage")
 	
@@ -73,10 +74,13 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		disable_sword()
 
 func disable_sword():
-		visible = false
-		set_deferred("$Sprite/Area2D.monitoring", false)
-		set_deferred("$Sprite/Area2D.monitorable", false)
+	visible = false
+	set_deferred("$Sprite/Area2D.monitoring", false)
+	set_deferred("$Sprite/Area2D.monitorable", false)
 
 func _on_AnimationPlayer_animation_started(anim_name):
 	if anim_name != "RESET":
 		$AudioStreamPlayer2D.play()
+
+func _stop_attack():
+	disable_sword()

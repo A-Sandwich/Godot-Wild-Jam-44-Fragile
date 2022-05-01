@@ -5,12 +5,14 @@ signal arrived
 var target_location = Vector2.INF
 var is_evil = false
 var player = null
-var is_cooling = false
+var can_move = true
+var range_attack_cooldown = 2.5
+var attack_cooldown = 0.75
 
 func _ready():
 	$AnimatedSprite.play("Idle")
 	_turn_evil()
-	#hp = 10
+	hp = 10
 	speed = 50
 	$Sword.scale = scale * .75
 	$Sword._update_cooldown(2)
@@ -41,15 +43,17 @@ func get_direction_to_target():
 
 
 func _physics_process(delta):
-	if is_cooling:
-		return
-
 	var direction = Vector2.ZERO
 	if is_evil:
 		direction = get_direction_to_player()
 	else:
 		direction = get_direction_to_target()
 
+	if !can_move:
+		return
+
+	if !$AnimatedSprite.is_playing():
+		$AnimatedSprite.play("Walk")
 	move_and_slide(direction * speed)
 
 
@@ -76,27 +80,42 @@ func get_direction_to_player():
 			var distance_to_player = global_position.distance_to(player.global_position)
 			if distance_to_player > 200 and distance_to_player < 400:
 				emit_signal("range_attack", direction)
-				start_cooldown()
+				start_cooldown(range_attack_cooldown)
 			elif distance_to_player <= 100:
 				emit_signal("attack", direction)
-				start_cooldown()
+				start_cooldown(attack_cooldown)
 		most_recent_direction = direction
 	
 	if direction == null:
 		return Vector2.ZERO
 	return direction
 
-func start_cooldown():
-	is_cooling = true
-	$ActionCooldown.start()
+func start_cooldown(attack_cooldown = 1):
+	if $AttackCooldown.time_left == 0:
+		can_attack = false
+		$AttackCooldown.wait_time = attack_cooldown
+		$AttackCooldown.start()
+	if $MovementCooldown.time_left == 0:
+		can_move = false
+		$MovementCooldown.start()
 
 func _turn_evil():
 	is_evil = true
 	$AnimatedSprite.play("IdleEvil")
 
-
-func _on_ActionCooldown_timeout():
-	is_cooling = false
-
 func _die(animation = "Die"):
 	._die("DieEvil")
+
+func _on_MovementCooldown_timeout():
+	can_move = true
+
+
+func _on_AttackCooldown_timeout():
+	can_attack = true
+
+func _damage(body):
+	._damage(body)
+	$AnimatedSprite.play("DamageEvil")
+
+func _on_AnimatedSprite_animation_finished():
+	pass
