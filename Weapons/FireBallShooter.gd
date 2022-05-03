@@ -11,6 +11,7 @@ var number_of_shots = shot_capacity
 
 func _ready():
 	get_parent().connect("range_attack", self, "_attack")
+	get_parent().connect("reload", self, "_reload")
 	$SpawnPoints.connect_flip_signal(get_parent())
 	connect("ammo_out", get_parent(), "_ammo_out")
 
@@ -18,6 +19,8 @@ func set_target_node(target):
 	target_node = target
 
 func _attack(direction):
+	if number_of_shots < 1:
+		emit_signal("ammo_out")
 	if !can_attack:
 		return
 
@@ -64,3 +67,8 @@ func _on_Cooldown_timeout():
 
 func die():
 	queue_free()
+
+func _reload():
+	# todo: inspect cooldown. Probably should just remove and let the the owner decide if they can attack?
+	can_attack = true
+	number_of_shots = shot_capacity

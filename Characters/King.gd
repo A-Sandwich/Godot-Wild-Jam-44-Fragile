@@ -1,6 +1,7 @@
 extends "res://Characters/BaseCharacter.gd"
 
 signal arrived
+signal reload
 
 var target_location = Vector2.INF
 var is_evil = false
@@ -81,7 +82,6 @@ func get_direction_to_player():
 	var knockback = _knocback()
 
 	if is_attacking_range():
-		print("Attacking at range!")
 		emit_signal("range_attack", direction)
 	
 	if not is_stunned:
@@ -132,8 +132,12 @@ func _on_AnimatedSprite_animation_finished():
 
 
 func _on_RangedAttackTimer_timeout():
+	emit_signal("reload")
 	can_move = false
 	is_invulnerable = true
+	can_attack = false
+	$Particles2D.emitting = true
+	$RangedAttackAnimation.play("IntesifyLight")
 	$RangedAttackAnimation.play("RangedAttack")
 
 
@@ -141,8 +145,11 @@ func _on_RangedAttackAnimation_animation_finished(anim_name):
 	if anim_name == "RangedAttack" and !is_lowering:
 		$RangedAttackAnimation.play("Bounce")
 	elif anim_name == "RangedAttack" and is_lowering:
+		is_lowering = false
 		can_move = true
 		is_invulnerable = false
+		$Particles2D.emitting = false
+		$RangedAttackTimer.start()
 		
 func is_attacking_range():
 	return $RangedAttackAnimation.current_animation == "Bounce" and $RangedAttackAnimation.is_playing()
