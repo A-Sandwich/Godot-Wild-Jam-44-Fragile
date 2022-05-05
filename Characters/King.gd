@@ -82,7 +82,7 @@ func get_direction_to_player():
 	var knockback = _knocback()
 
 	if is_attacking_range():
-		emit_signal("range_attack", direction)
+		emit_signal("range_attack", direction, player)
 	
 	if not is_stunned:
 		if can_attack:
@@ -148,6 +148,7 @@ func _on_RangedAttackAnimation_animation_finished(anim_name):
 		is_lowering = false
 		can_move = true
 		is_invulnerable = false
+		can_attack = true
 		$Particles2D.emitting = false
 		$RangedAttackTimer.start()
 		

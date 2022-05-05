@@ -14,4 +14,4 @@ func _setup(spawned_node):
 
 func _launch():
 	is_blocked = false
-	emit_signal("available", self)
+	emit_signal("available")

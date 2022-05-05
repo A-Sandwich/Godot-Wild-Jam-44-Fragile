@@ -3,6 +3,7 @@ extends KinematicBody2D
 signal damage
 signal launch
 
+var target = null
 var direction = Vector2.ZERO
 var speed = 125
 var hit = false
@@ -42,4 +43,20 @@ func _on_AnimatedSprite_animation_finished():
 		$Trail.emitting = true
 		$AnimatedSprite.play("Flying")
 		yield(get_tree().create_timer(0.5), "timeout")
+		_on_ChangeCourse_timeout()
+		$ChangeCourse.start()
+		$LifeTime.start()
 		emit_signal("launch")
+
+
+func _on_ChangeCourse_timeout():
+	if target != null and is_instance_valid(target):
+		direction = global_position.direction_to(target.global_position)
+	speed -= 2
+	$Light2D.energy -= 0.025
+
+
+func _on_LifeTime_timeout():
+	if $AnimatedSprite.animation != "GoOut":
+		can_move = false
+		$AnimatedSprite.play("GoOut")

@@ -234,4 +234,13 @@ randomness = 1.0
 local_coords = false
 process_material = SubResource( 23 )
 
+[node name="ChangeCourse" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="LifeTime" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="timeout" from="ChangeCourse" to="." method="_on_ChangeCourse_timeout"]
+[connection signal="timeout" from="LifeTime" to="." method="_on_LifeTime_timeout"]

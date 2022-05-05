@@ -18,7 +18,8 @@ func _ready():
 func set_target_node(target):
 	target_node = target
 
-func _attack(direction):
+func _attack(direction, target = null):
+	target_node = target
 	if number_of_shots < 1:
 		emit_signal("ammo_out")
 	if !can_attack:
@@ -47,6 +48,7 @@ func create_fireball(direction, spawn_point):
 	var fireball = FIREBALL.instance()
 	fireball.global_position = spawn_point.global_position
 	fireball.direction = direction
+	fireball.target = target_node
 	fireball.radians = spawn_point.global_position.angle_to(direction)
 	fireball.rotate(spawn_point.global_position.angle_to(direction))
 	get_tree().root.add_child(fireball)
