@@ -10,6 +10,9 @@ var can_move = true
 var range_attack_cooldown = 2.5
 var attack_cooldown = 0.75
 var is_lowering = false
+var is_rushing = false
+var rush_direction = Vector2.ZERO
+var rush_speed = speed * 2.75
 
 func _ready():
 	$RangedAttackAnimation.play("RESET")
@@ -22,6 +25,7 @@ func _ready():
 	$Sword._update_attack_speed(0.2)
 	yield(get_tree().create_timer(1), "timeout")
 	can_attack = true
+	charge_attack()
 
 func set_target_location(target):
 	target_location = target
@@ -44,12 +48,20 @@ func flip_sprite(direction):
 	if direction.x < 0:
 		emit_signal("flip_h", true)
 		$AnimatedSprite.flip_h = true
+		# todo figure out how to flip charge animation or just create the other side of it
 	elif direction.x > 0:
 		emit_signal("flip_h", false)
 		$AnimatedSprite.flip_h = false
 
 func _physics_process(delta):
 	var direction = Vector2.ZERO
+	if is_rushing:
+		var result = move_and_collide(rush_direction * rush_speed * delta)
+		if result or rush_direction == Vector2.ZERO:
+			# play bump animation here when ya make it
+			rush_direction = get_direction_to_player()
+		return
+
 	if is_evil:
 		direction = get_direction_to_player()
 	else:
@@ -137,7 +149,7 @@ func _on_RangedAttackTimer_timeout():
 	is_invulnerable = true
 	can_attack = false
 	$Particles2D.emitting = true
-	$RangedAttackAnimation.play("IntesifyLight")
+	$LightAnimation.play("IntesifyLight")
 	$RangedAttackAnimation.play("RangedAttack")
 
 
@@ -150,6 +162,7 @@ func _on_RangedAttackAnimation_animation_finished(anim_name):
 		is_invulnerable = false
 		can_attack = true
 		$Particles2D.emitting = false
+		$LightAnimation.play_backwards("IntesifyLight")
 		$RangedAttackTimer.start()
 		
 func is_attacking_range():
@@ -158,3 +171,28 @@ func is_attacking_range():
 func _ammo_out():
 	$RangedAttackAnimation.play_backwards("RangedAttack")
 	is_lowering = true
+	
+func charge_attack():
+	$Sword.visible = true
+	$RangedAttackTimer.stop()
+	can_move = false
+	can_attack = false
+	is_invulnerable = true
+	$Charge.play("ChargeAttack")
+
+
+func _on_Charge_animation_finished(anim_name):
+	if anim_name == "ChargeAttack":
+		$ChargeTimer.start()
+		$Charge.play("Rush")
+		can_move = true
+		can_attack = true
+		is_invulnerable = false
+		is_rushing = true
+
+
+func _on_ChargeTimer_timeout():
+	is_invulnerable = false
+	is_rushing = false
+	$RangedAttackTimer.start()
+	$Charge.play("RESET")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://Assets/Sprites/camelot_ v1.0/arthurPendragon_.png" type="Texture" id=1]
 [ext_resource path="res://Characters/King.gd" type="Script" id=2]
@@ -8,22 +8,6 @@
 [ext_resource path="res://Assets/Sounds/oooh.wav" type="AudioStream" id=6]
 [ext_resource path="res://Weapons/FireBallShooter.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Sprites/shadow.png" type="Texture" id=8]
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 1 )
-region = Rect2( 24, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 1 )
-region = Rect2( 48, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 1 )
-region = Rect2( 72, 48, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 1 )
@@ -40,22 +24,6 @@ region = Rect2( 48, 120, 24, 24 )
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
 region = Rect2( 72, 120, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 96, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 24, 96, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 48, 96, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 72, 96, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
@@ -89,6 +57,38 @@ region = Rect2( 48, 72, 24, 24 )
 atlas = ExtResource( 1 )
 region = Rect2( 72, 72, 24, 24 )
 
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 96, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 24, 96, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 96, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 72, 96, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 48, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 1 )
+region = Rect2( 24, 48, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 48, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 1 )
+region = Rect2( 72, 48, 24, 24 )
+
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 24, 24 )
@@ -121,38 +121,6 @@ region = Rect2( 48, 0, 24, 24 )
 atlas = ExtResource( 3 )
 region = Rect2( 72, 0, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 3 )
-region = Rect2( 24, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 3 )
-region = Rect2( 48, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=38]
-atlas = ExtResource( 3 )
-region = Rect2( 72, 48, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 96, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 3 )
-region = Rect2( 24, 96, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=45]
-atlas = ExtResource( 3 )
-region = Rect2( 48, 96, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 3 )
-region = Rect2( 72, 96, 24, 24 )
-
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 24, 24, 24 )
@@ -168,22 +136,6 @@ region = Rect2( 48, 24, 24, 24 )
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 3 )
 region = Rect2( 72, 24, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 120, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 3 )
-region = Rect2( 24, 120, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 3 )
-region = Rect2( 48, 120, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 3 )
-region = Rect2( 72, 120, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 3 )
@@ -201,22 +153,60 @@ region = Rect2( 48, 72, 24, 24 )
 atlas = ExtResource( 3 )
 region = Rect2( 72, 72, 24, 24 )
 
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 96, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 3 )
+region = Rect2( 24, 96, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 96, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 3 )
+region = Rect2( 72, 96, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 120, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 3 )
+region = Rect2( 24, 120, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 120, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 3 )
+region = Rect2( 72, 120, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 48, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 3 )
+region = Rect2( 24, 48, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 48, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 3 )
+region = Rect2( 72, 48, 24, 24 )
+
 [sub_resource type="SpriteFrames" id=25]
 animations = [ {
-"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
-"loop": true,
-"name": "Run",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": false,
 "name": "Die",
 "speed": 2.0
-}, {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
-"loop": true,
-"name": "Damage",
-"speed": 5.0
 }, {
 "frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
@@ -226,6 +216,16 @@ animations = [ {
 "frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
 "name": "Turn",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "Damage",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"loop": true,
+"name": "Run",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
@@ -238,9 +238,14 @@ animations = [ {
 "name": "IdleEvil",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ) ],
+"frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
 "loop": true,
-"name": "RunEvil",
+"name": "WalkEvil",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
+"loop": true,
+"name": "TurnEvil",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
@@ -248,19 +253,14 @@ animations = [ {
 "name": "DamageEvil",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
-"loop": true,
-"name": "WalkEvil",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ) ],
 "loop": false,
 "name": "DieEvil",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
+"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ) ],
 "loop": true,
-"name": "TurnEvil",
+"name": "RunEvil",
 "speed": 5.0
 } ]
 
@@ -511,6 +511,177 @@ color = Color( 0.909804, 0, 1, 0.611765 )
 hue_variation = 0.12
 hue_variation_random = 0.5
 
+[sub_resource type="Animation" id=57]
+resource_name = "IntensifyLight"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2D:energy")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 2.0 ]
+}
+
+[sub_resource type="Animation" id=58]
+resource_name = "ChargeAttack"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sword:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 47.0066, 47.0066 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sword:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -5.5, 11 ), Vector2( -5.5, 11 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sword:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sword:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=59]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sword:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sword:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sword:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sword:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=60]
+resource_name = "Rush"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sword:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 47.0066, 0.0, -90.0, -135.0, -90.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sword:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -5.5, 11 ), Vector2( 0, 11 ), Vector2( 13, 0 ), Vector2( 10, -10 ), Vector2( 13, 0 ), Vector2( 0, 11 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sword:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.75, 0.75 ), Vector2( 0.75, 0.75 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sword:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
 [node name="King" type="KinematicBody2D" groups=["Damagable", "Enemy", "King", "damagable", "enemy", "king"]]
 scale = Vector2( 2, 2 )
 script = ExtResource( 2 )
@@ -518,6 +689,7 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -4 )
 frames = SubResource( 25 )
+animation = "Walk"
 
 [node name="Light2D" type="Light2D" parent="."]
 scale = Vector2( 0.4625, 0.442553 )
@@ -533,6 +705,8 @@ position = Vector2( 0, -1 )
 shape = SubResource( 26 )
 
 [node name="Sword" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 0, 3 )
 scale = Vector2( 0.75, 0.75 )
 
 [node name="FireBallShooter" parent="." instance=ExtResource( 7 )]
@@ -572,8 +746,22 @@ lifetime = 5.0
 randomness = 1.0
 process_material = SubResource( 55 )
 
+[node name="LightAnimation" type="AnimationPlayer" parent="."]
+anims/IntensifyLight = SubResource( 57 )
+
+[node name="Charge" type="AnimationPlayer" parent="."]
+anims/ChargeAttack = SubResource( 58 )
+anims/RESET = SubResource( 59 )
+anims/Rush = SubResource( 60 )
+
+[node name="ChargeTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="MovementCooldown" to="." method="_on_MovementCooldown_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_AttackCooldown_timeout"]
 [connection signal="timeout" from="RangedAttackTimer" to="." method="_on_RangedAttackTimer_timeout"]
 [connection signal="animation_finished" from="RangedAttackAnimation" to="." method="_on_RangedAttackAnimation_animation_finished"]
+[connection signal="animation_finished" from="Charge" to="." method="_on_Charge_animation_finished"]
+[connection signal="timeout" from="ChargeTimer" to="." method="_on_ChargeTimer_timeout"]

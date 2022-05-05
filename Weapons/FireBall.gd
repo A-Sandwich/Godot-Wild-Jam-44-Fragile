@@ -51,6 +51,7 @@ func _on_AnimatedSprite_animation_finished():
 
 func _on_ChangeCourse_timeout():
 	if target != null and is_instance_valid(target):
+		#todo rotate towards target
 		direction = global_position.direction_to(target.global_position)
 	speed -= 2
 	$Light2D.energy -= 0.025

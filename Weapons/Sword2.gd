@@ -58,13 +58,13 @@ func die():
 	$Sprite.visible = false
 
 func _on_Area2D_body_entered(body):
-	print(body.name)
 	if body == self or body == get_parent():
 		return
 	if "enemy" in get_parent().get_groups() and "enemy" in body.get_groups():
 		return
 	if not is_connected("damage", body, "_damage") and "damagable" in body.get_groups():
 		connect("damage", body, "_damage")
+	print(body.name)
 	emit_signal("damage", body)
 
 
