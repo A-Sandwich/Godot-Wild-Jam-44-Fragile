@@ -20,8 +20,11 @@ func set_target_node(target):
 
 func _attack(direction, target = null):
 	target_node = target
-	if number_of_shots < 1:
+	if number_of_shots < 1 and can_attack:
+		$Cooldown.stop()
+		can_attack = false
 		emit_signal("ammo_out")
+
 	if !can_attack:
 		return
 
@@ -71,6 +74,5 @@ func die():
 	queue_free()
 
 func _reload():
-	# todo: inspect cooldown. Probably should just remove and let the the owner decide if they can attack?
 	can_attack = true
 	number_of_shots = shot_capacity

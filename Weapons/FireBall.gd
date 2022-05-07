@@ -29,7 +29,7 @@ func _physics_process(delta):
 	
 	if collision != null:
 		hit = true
-		if "damageable" in collision.collider.get_groups():
+		if "damageable" in collision.collider.get_groups() and collision.collider == target:
 			emit_signal("damage", collision.collider)
 		print(collision.collider.name, "fireball!")
 		$AnimatedSprite.play("GoOut")
@@ -51,7 +51,7 @@ func _on_AnimatedSprite_animation_finished():
 
 func _on_ChangeCourse_timeout():
 	if target != null and is_instance_valid(target):
-		#todo rotate towards target
+		look_at(target.global_position)
 		direction = global_position.direction_to(target.global_position)
 	speed -= 2
 	$Light2D.energy -= 0.025

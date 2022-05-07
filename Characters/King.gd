@@ -13,6 +13,10 @@ var is_lowering = false
 var is_rushing = false
 var rush_direction = Vector2.ZERO
 var rush_speed = speed * 2.75
+var agression_increase = 0.5
+var agression_level = 0.0
+var time_since_last_ranged_attack = 0.0
+var time_since_last_charge_attack = 0.0
 
 func _ready():
 	$RangedAttackAnimation.play("RESET")
@@ -25,7 +29,6 @@ func _ready():
 	$Sword._update_attack_speed(0.2)
 	yield(get_tree().create_timer(1), "timeout")
 	can_attack = true
-	charge_attack()
 
 func set_target_location(target):
 	target_location = target
@@ -48,12 +51,18 @@ func flip_sprite(direction):
 	if direction.x < 0:
 		emit_signal("flip_h", true)
 		$AnimatedSprite.flip_h = true
-		# todo figure out how to flip charge animation or just create the other side of it
+		$ChargeAttack.flip_h(true)
 	elif direction.x > 0:
 		emit_signal("flip_h", false)
 		$AnimatedSprite.flip_h = false
+		$ChargeAttack.flip_h(false)
+
+func update_attack_timers(delta):
+	time_since_last_charge_attack += delta
+	time_since_last_ranged_attack += delta
 
 func _physics_process(delta):
+	update_attack_timers(delta)
 	var direction = Vector2.ZERO
 	if is_rushing:
 		var result = move_and_collide(rush_direction * rush_speed * delta)
@@ -92,25 +101,37 @@ func get_direction_to_player():
 
 	var direction = global_position.direction_to(player.global_position)
 	var knockback = _knocback()
-
-	if is_attacking_range():
-		emit_signal("range_attack", direction, player)
-	
-	if not is_stunned:
-		if can_attack:
-			var distance_to_player = global_position.distance_to(player.global_position)
-#			if distance_to_player > 200 and distance_to_player < 400:
-#				emit_signal("range_attack", direction)
-#				start_cooldown(range_attack_cooldown)
-			if distance_to_player <= 50:
-				emit_signal("attack", direction)
-				start_cooldown(attack_cooldown)
-		most_recent_direction = direction
 	
 	if direction == null:
 		return Vector2.ZERO
 	flip_sprite(direction)
 	return direction
+
+func attack(direction):
+	if is_attacking_range():
+		emit_signal("range_attack", direction, player)
+	var distance_to_player = global_position.distance_to(player.global_position)
+	if not is_stunned:
+		if can_attack:
+			most_recent_direction = direction
+
+func basic_attack(distance_to_player, direction):
+	if distance_to_player <= 50:
+		emit_signal("attack", direction)
+		start_cooldown(attack_cooldown)
+
+func ranged_attack(distance_to_player, direction):
+	if agression_level > 1.5 and distance_to_player > 200 and distance_to_player < 400:
+		emit_signal("range_attack", direction)
+		start_cooldown(range_attack_cooldown)
+
+func charge_attack():
+	$Sword.visible = true
+	$RangedAttackTimer.stop()
+	can_move = false
+	can_attack = false
+	is_invulnerable = true
+	$ChargeAttack/ChargeAttackAnimationPlayer.play("ChargeAttack")
 
 func start_cooldown(attack_cooldown = 1):
 	if $AttackCooldown.time_left == 0:
@@ -137,7 +158,9 @@ func _on_AttackCooldown_timeout():
 
 func _damage(body):
 	._damage(body)
+	agression_level += agression_increase
 	$AnimatedSprite.play("DamageEvil")
+	
 
 func _on_AnimatedSprite_animation_finished():
 	pass
@@ -172,19 +195,12 @@ func _ammo_out():
 	$RangedAttackAnimation.play_backwards("RangedAttack")
 	is_lowering = true
 	
-func charge_attack():
-	$Sword.visible = true
-	$RangedAttackTimer.stop()
-	can_move = false
-	can_attack = false
-	is_invulnerable = true
-	$Charge.play("ChargeAttack")
 
 
 func _on_Charge_animation_finished(anim_name):
 	if anim_name == "ChargeAttack":
-		$ChargeTimer.start()
-		$Charge.play("Rush")
+		$ChargeAttack/ChargeTimer.start()
+		$ChargeAttack/ChargeAttackAnimationPlayer.play("Rush")
 		can_move = true
 		can_attack = true
 		is_invulnerable = false
@@ -195,4 +211,4 @@ func _on_ChargeTimer_timeout():
 	is_invulnerable = false
 	is_rushing = false
 	$RangedAttackTimer.start()
-	$Charge.play("RESET")
+	$ChargeAttack/ChargeAttackAnimationPlayer.play("RESET")
