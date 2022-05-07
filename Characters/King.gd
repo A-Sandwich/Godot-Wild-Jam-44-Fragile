@@ -3,6 +3,7 @@ extends "res://Characters/BaseCharacter.gd"
 signal arrived
 signal reload
 
+var ATTACK_DEFINITION = preload("res://Characters/AttackDefinition.gd")
 var target_location = Vector2.INF
 var is_evil = false
 var player = null
@@ -17,9 +18,7 @@ var agression_increase = 0.5
 var agression_level = 0.0
 var time_since_last_ranged_attack = 0.0
 var time_since_last_charge_attack = 0.0
-var basic_attack_info = { "name": "basic", "agression_level": 0.0}
-var range_attack_info = { "name": "range", "agression_level": 1.5}
-var charge_attack_info = { "name": "charge", "agression_level" : 2.5 }
+var possible_attacks = []
 
 func _ready():
 	$RangedAttackAnimation.play("RESET")
@@ -32,6 +31,15 @@ func _ready():
 	$Sword._update_attack_speed(0.2)
 	yield(get_tree().create_timer(1), "timeout")
 	can_attack = true
+	setup_attacks()
+
+func setup_attacks():
+	var attack_definition : AttackDefinition = ATTACK_DEFINITION.instance()
+	possible_attacks.append(attack_definition.setup_basic_attack())
+	attack_definition = ATTACK_DEFINITION.instance()
+	possible_attacks.append(attack_definition.setup_ranged_attack())
+	attack_definition = ATTACK_DEFINITION.instance()
+	possible_attacks.append(attack_definition.setup_charge_attack())
 
 func set_target_location(target):
 	target_location = target
@@ -118,7 +126,26 @@ func attack(direction):
 	var distance_to_player = global_position.distance_to(player.global_position)
 	if not is_stunned and can_attack:
 		most_recent_direction = direction
-	var possible_attacks = [basic_attack_info]
+		var attack : AttackDefinition = get_attack()
+		# todo I think that instead of returning an attack definition, I should just call the attack and return. I also still need to check timer states etc to make sure an attack is valid to call.
+		# Alternatively, I could just call all "valid" attacks and each attack method could be "smart" and check state before initiating. Probably cleaner.
+
+func get_attack():
+	var attacks = get_possible_attacks()
+	attacks.invert()
+	var random_number = $"/root/State".rng.randf_range(0, 1)
+	for i in attacks:
+		var attack : AttackDefinition = i
+		if attack.get_probability() >= random_number:
+			return attack
+
+func get_possible_attacks():
+	var attacks = []
+	for i in possible_attacks:
+		var possible_attack : AttackDefinition = i
+		if possible_attack.get_agression_level() < agression_level:
+			attacks.append(possible_attack)
+	return attacks
 
 
 func basic_attack(distance_to_player, direction):
