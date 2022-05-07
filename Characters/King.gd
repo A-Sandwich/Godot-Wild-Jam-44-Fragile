@@ -17,6 +17,9 @@ var agression_increase = 0.5
 var agression_level = 0.0
 var time_since_last_ranged_attack = 0.0
 var time_since_last_charge_attack = 0.0
+var basic_attack_info = { "name": "basic", "agression_level": 0.0}
+var range_attack_info = { "name": "range", "agression_level": 1.5}
+var charge_attack_info = { "name": "charge", "agression_level" : 2.5 }
 
 func _ready():
 	$RangedAttackAnimation.play("RESET")
@@ -63,6 +66,17 @@ func update_attack_timers(delta):
 
 func _physics_process(delta):
 	update_attack_timers(delta)
+	
+	if !can_move:
+		return
+		
+	var direction = get_direction(delta)
+	
+	if !$AnimatedSprite.is_playing():
+		$AnimatedSprite.play("Walk")
+	move_and_slide(direction * speed)
+
+func get_direction(delta):
 	var direction = Vector2.ZERO
 	if is_rushing:
 		var result = move_and_collide(rush_direction * rush_speed * delta)
@@ -75,15 +89,8 @@ func _physics_process(delta):
 		direction = get_direction_to_player()
 	else:
 		direction = get_direction_to_target()
-
-	if !can_move:
-		return
-
-	if !$AnimatedSprite.is_playing():
-		$AnimatedSprite.play("Walk")
-	move_and_slide(direction * speed)
-
-
+	return direction
+	
 func get_player():
 	var players = get_tree().get_nodes_in_group("player")
 	if players.size() > 0:
@@ -108,12 +115,11 @@ func get_direction_to_player():
 	return direction
 
 func attack(direction):
-	if is_attacking_range():
-		emit_signal("range_attack", direction, player)
 	var distance_to_player = global_position.distance_to(player.global_position)
-	if not is_stunned:
-		if can_attack:
-			most_recent_direction = direction
+	if not is_stunned and can_attack:
+		most_recent_direction = direction
+	var possible_attacks = [basic_attack_info]
+
 
 func basic_attack(distance_to_player, direction):
 	if distance_to_player <= 50:
