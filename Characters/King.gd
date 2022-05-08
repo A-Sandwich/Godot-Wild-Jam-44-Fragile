@@ -1,24 +1,28 @@
 extends "res://Characters/BaseCharacter.gd"
 
+class_name King
+
 signal arrived
 signal reload
 
-var ATTACK_DEFINITION = preload("res://Characters/AttackDefinition.gd")
-var target_location = Vector2.INF
-var is_evil = false
+const ATTACK_DEFINITION = preload("res://Characters/AttackDefinition.gd")
+const STATE = preload("res://Characters/CharacterState.gd")
+var state : CharacterState
+var target_location : Vector2 = Vector2.INF
+var is_evil : bool = false
 var player = null
-var can_move = true
-var range_attack_cooldown = 2.5
-var attack_cooldown = 0.75
-var is_lowering = false
-var is_rushing = false
-var rush_direction = Vector2.ZERO
-var rush_speed = speed * 2.75
-var agression_increase = 0.5
-var agression_level = 0.0
-var time_since_last_ranged_attack = 0.0
-var time_since_last_charge_attack = 0.0
-var possible_attacks = []
+var can_move : bool = true
+var range_attack_cooldown : float = 2.5
+var attack_cooldown : float = 0.75
+var is_lowering : bool = false
+var is_rushing : bool = false
+var rush_direction : Vector2 = Vector2.ZERO
+var rush_speed : float = speed * 2.75
+var agression_increase : float = 0.5
+var agression_level : float = 0.0
+var time_since_last_ranged_attack : float = 0.0
+var time_since_last_charge_attack : float = 0.0
+var possible_attacks : Array = []
 
 func _ready():
 	$RangedAttackAnimation.play("RESET")
@@ -31,15 +35,17 @@ func _ready():
 	$Sword._update_attack_speed(0.2)
 	yield(get_tree().create_timer(1), "timeout")
 	can_attack = true
+	$Sword.connect("basic_attack_complete", self, "_basic_attack_complete")
+	state = STATE.new()
 	setup_attacks()
 
 func setup_attacks():
-	var attack_definition : AttackDefinition = ATTACK_DEFINITION.instance()
-	possible_attacks.append(attack_definition.setup_basic_attack())
-	attack_definition = ATTACK_DEFINITION.instance()
-	possible_attacks.append(attack_definition.setup_ranged_attack())
-	attack_definition = ATTACK_DEFINITION.instance()
-	possible_attacks.append(attack_definition.setup_charge_attack())
+	var attack_definition : AttackDefinition = ATTACK_DEFINITION.new()
+	possible_attacks.append(attack_definition.setup_basic_attack(self))
+	attack_definition = ATTACK_DEFINITION.new()
+	possible_attacks.append(attack_definition.setup_ranged_attack(self))
+	attack_definition = ATTACK_DEFINITION.new()
+	possible_attacks.append(attack_definition.setup_charge_attack(self))
 
 func set_target_location(target):
 	target_location = target
@@ -77,9 +83,11 @@ func _physics_process(delta):
 	
 	if !can_move:
 		return
-		
+
 	var direction = get_direction(delta)
 	
+	most_recent_direction = direction
+	attack(direction)
 	if !$AnimatedSprite.is_playing():
 		$AnimatedSprite.play("Walk")
 	move_and_slide(direction * speed)
@@ -89,7 +97,7 @@ func get_direction(delta):
 	if is_rushing:
 		var result = move_and_collide(rush_direction * rush_speed * delta)
 		if result or rush_direction == Vector2.ZERO:
-			# play bump animation here when ya make it
+			# todo play bump animation here when ya make it
 			rush_direction = get_direction_to_player()
 		return
 
@@ -123,44 +131,64 @@ func get_direction_to_player():
 	return direction
 
 func attack(direction):
-	var distance_to_player = global_position.distance_to(player.global_position)
 	if not is_stunned and can_attack:
-		most_recent_direction = direction
-		var attack : AttackDefinition = get_attack()
-		# todo I think that instead of returning an attack definition, I should just call the attack and return. I also still need to check timer states etc to make sure an attack is valid to call.
-		# Alternatively, I could just call all "valid" attacks and each attack method could be "smart" and check state before initiating. Probably cleaner.
+		var attacks : Array = get_attacks()
+		for i in attacks:
+			var attack = i as AttackDefinition
+			attack.send_attack()
 
-func get_attack():
-	var attacks = get_possible_attacks()
-	attacks.invert()
+func get_attacks():
+	var attacks = []
+	var attack_selection = get_possible_attacks()
+	attack_selection.invert()
 	var random_number = $"/root/State".rng.randf_range(0, 1)
-	for i in attacks:
+	for i in attack_selection:
 		var attack : AttackDefinition = i
 		if attack.get_probability() >= random_number:
-			return attack
+			attacks.append(attack)
+	return attacks
 
 func get_possible_attacks():
 	var attacks = []
 	for i in possible_attacks:
 		var possible_attack : AttackDefinition = i
-		if possible_attack.get_agression_level() < agression_level:
+		if possible_attack.get_agression_level() <= agression_level:
 			attacks.append(possible_attack)
 	return attacks
 
 
-func basic_attack(distance_to_player, direction):
-	if distance_to_player <= 50:
-		emit_signal("attack", direction)
+func _initiate_basic_attack():
+	if !state.set_state("BASIC") or !is_instance_valid(player):
+		return
+	
+	if global_position.distance_to(player.global_position) <= 50:
+		emit_signal("attack", most_recent_direction)
 		start_cooldown(attack_cooldown)
+	else:
+		state.clear_state("BASIC")
 
-func ranged_attack(distance_to_player, direction):
+func _initiate_range_attack():
+	if !state.set_state("RANGE") or !is_instance_valid(player):
+		return
+
+	var distance_to_player = global_position.distance_to(player.global_position)
 	if agression_level > 1.5 and distance_to_player > 200 and distance_to_player < 400:
-		emit_signal("range_attack", direction)
+		emit_signal("range_attack", most_recent_direction)
 		start_cooldown(range_attack_cooldown)
+		can_move = false
+		is_invulnerable = true
+		can_attack = false
+		$Particles2D.emitting = true
+		$LightAnimation.play("IntesifyLight")
+		$RangedAttackAnimation.play("RangedAttack")
+	else:
+		state.clear_state("RANGE")
 
-func charge_attack():
+func _initiate_charge_attack():
+	if !state.set_state("CHARGE"):
+		return
+	# todo add checks to make sure this attack can run
 	$Sword.visible = true
-	$RangedAttackTimer.stop()
 	can_move = false
 	can_attack = false
 	is_invulnerable = true
@@ -185,29 +213,20 @@ func _die(animation = "Die"):
 func _on_MovementCooldown_timeout():
 	can_move = true
 
-
 func _on_AttackCooldown_timeout():
 	can_attack = true
 
 func _damage(body):
 	._damage(body)
 	agression_level += agression_increase
+	print("Agression Level: ", agression_level)
 	$AnimatedSprite.play("DamageEvil")
-	
 
 func _on_AnimatedSprite_animation_finished():
 	pass
 
-
 func _on_RangedAttackTimer_timeout():
 	emit_signal("reload")
-	can_move = false
-	is_invulnerable = true
-	can_attack = false
-	$Particles2D.emitting = true
-	$LightAnimation.play("IntesifyLight")
-	$RangedAttackAnimation.play("RangedAttack")
-
 
 func _on_RangedAttackAnimation_animation_finished(anim_name):
 	if anim_name == "RangedAttack" and !is_lowering:
@@ -220,6 +239,7 @@ func _on_RangedAttackAnimation_animation_finished(anim_name):
 		$Particles2D.emitting = false
 		$LightAnimation.play_backwards("IntesifyLight")
 		$RangedAttackTimer.start()
+		state.clear_state("RANGE")
 		
 func is_attacking_range():
 	return $RangedAttackAnimation.current_animation == "Bounce" and $RangedAttackAnimation.is_playing()
@@ -227,8 +247,6 @@ func is_attacking_range():
 func _ammo_out():
 	$RangedAttackAnimation.play_backwards("RangedAttack")
 	is_lowering = true
-	
-
 
 func _on_Charge_animation_finished(anim_name):
 	if anim_name == "ChargeAttack":
@@ -238,10 +256,12 @@ func _on_Charge_animation_finished(anim_name):
 		can_attack = true
 		is_invulnerable = false
 		is_rushing = true
-
+		state.clear_state("CHARGE")
 
 func _on_ChargeTimer_timeout():
 	is_invulnerable = false
 	is_rushing = false
-	$RangedAttackTimer.start()
 	$ChargeAttack/ChargeAttackAnimationPlayer.play("RESET")
+
+func _basic_attack_complete():
+	state.clear_state("BASIC")

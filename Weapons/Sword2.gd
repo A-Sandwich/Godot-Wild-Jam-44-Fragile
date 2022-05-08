@@ -1,6 +1,7 @@
 extends Node2D
 
 signal damage
+signal basic_attack_complete
 
 var can_attack = true
 var attack_speed = 2.0
@@ -72,6 +73,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name != "RESET":
 		$AnimationPlayer.play("RESET")
 		disable_sword()
+		if is_connected("basic_attack_complete", get_parent(), "_basic_attack_complete"):
+			emit_signal("basic_attack_complete")
 
 func disable_sword():
 	visible = false

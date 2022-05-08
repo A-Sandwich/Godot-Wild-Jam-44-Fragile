@@ -8,7 +8,6 @@ func _ready():
 func flip_h(flip):
 	flip_h = flip
 
-
 func _on_ChargeAttackAnimationPlayer_animation_finished(anim_name):
 	if "Rush" in anim_name:
 		if flip_h:
